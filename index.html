@@ -2172,6 +2172,204 @@
 
     @media (max-width:768px) { .sidebar-search-wrap{display:none;} .composer-toolbar{align-items:stretch;} .composer-tools,.composer-status{width:100%;} .composer-tools{justify-content:space-between; margin-left:0;} .profile-inline-pills{width:100%; overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px;} .profile-inline-pills::-webkit-scrollbar{display:none;} .attached-file-chip .name{max-width:140px;} .settings-button-grid{grid-template-columns:1fr;} .toast-stack{left:14px; right:14px; bottom:calc(14px + env(safe-area-inset-bottom));} .toast{min-width:0; max-width:none;} .input-panel{padding-bottom:calc(18px + env(safe-area-inset-bottom));} }
 
+  
+
+    #neuralAvatar { display: none !important; }
+
+    .chat-ai-panel {
+      position: sticky;
+      top: 12px;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(13,19,27,0.9), rgba(10,15,22,0.92));
+      box-shadow: 0 20px 44px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .chat-ai-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(255,255,255,0.055), transparent 38%, rgba(139,94,60,0.05));
+      z-index: 0;
+    }
+
+    .chat-ai-orb {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      border-radius: 999px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: radial-gradient(circle at 32% 32%, rgba(180,230,255,0.12), rgba(18,24,36,0.96) 48%, rgba(7,10,16,0.98) 74%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 22px 36px rgba(0,0,0,0.18);
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+      z-index: 1;
+    }
+
+    .chat-ai-orb:hover {
+      transform: translateY(-1px) scale(1.012);
+      border-color: rgba(118,214,255,0.22);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 26px 42px rgba(0,0,0,0.22), 0 0 0 10px rgba(118,214,255,0.05);
+    }
+
+    .chat-ai-orb:active {
+      transform: scale(0.985);
+    }
+
+    .chat-ai-meta {
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .chat-ai-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chat-ai-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .chat-ai-mode {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 0 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-secondary);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .chat-ai-sub {
+      color: var(--text-secondary);
+      font-size: 12px;
+      line-height: 1.55;
+      max-width: 58ch;
+    }
+
+    .chat-ai-hint {
+      color: var(--text-muted);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .chat-ai-orb .neural-avatar-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .chat-ai-orb .neural-avatar-beam {
+      opacity: 0.78;
+      filter: blur(16px);
+    }
+
+    .messages-container,
+    .conversations-list,
+    .settings-content,
+    .code-block {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(123,181,255,0.28) rgba(255,255,255,0.04);
+    }
+
+    .messages-container {
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable both-edges;
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0 18px;
+      padding: 0 0 0 2px;
+    }
+
+    .typing-indicator .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(220,237,255,0.92);
+      box-shadow: 0 0 12px rgba(112, 193, 255, 0.28);
+      animation: typingDot 0.95s ease-in-out infinite;
+    }
+
+    .typing-indicator .dot:nth-child(2) { animation-delay: 0.1s; }
+    .typing-indicator .dot:nth-child(3) { animation-delay: 0.2s; }
+    .typing-indicator .dot:nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes typingDot {
+      0%, 100% { transform: translateY(0); opacity: 0.35; }
+      50% { transform: translateY(-3px); opacity: 1; }
+    }
+
+    @media (max-width: 900px) {
+      .chat-ai-panel {
+        top: 10px;
+        padding: 12px 13px;
+      }
+      .chat-ai-orb {
+        width: 74px;
+        height: 74px;
+      }
+      .chat-ai-sub {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .chat-ai-panel {
+        align-items: flex-start;
+        gap: 12px;
+        border-radius: 20px;
+      }
+      .chat-ai-meta {
+        gap: 5px;
+      }
+      .chat-ai-title {
+        font-size: 12px;
+      }
+      .chat-ai-sub {
+        font-size: 11px;
+      }
+      .chat-ai-hint {
+        font-size: 9px;
+      }
+      .messages-container {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2256,6 +2454,20 @@
 
       <div class="messages-container" id="messagesContainer">
         <div class="messages-inner" id="messagesInner">
+          <div class="chat-ai-panel" id="chatAiPanel">
+            <button type="button" class="chat-ai-orb neural-avatar neural-avatar-chat" id="chatOrb" data-mood="idle" aria-label="Proccesa core sphere">
+              <canvas class="neural-avatar-canvas" id="chatOrbCanvas" width="168" height="168"></canvas>
+              <div class="neural-avatar-beam"></div>
+            </button>
+            <div class="chat-ai-meta">
+              <div class="chat-ai-title-row">
+                <span class="chat-ai-title">Proccesa Core</span>
+                <span class="chat-ai-mode" id="chatAiMode">Instant browser mode</span>
+              </div>
+              <div class="chat-ai-sub" id="chatAiSub">Hover the sphere. It reacts to focus, typing, thinking and response flow.</div>
+              <div class="chat-ai-hint">Click sphere → cycle work mode</div>
+            </div>
+          </div>
           <div class="welcome-screen" id="welcomeScreen">
             <div class="welcome-decoration">
               <svg viewBox="0 0 200 200" width="200" height="200" style="position:absolute;inset:0;"><polygon points="100,10 190,55 190,145 100,190 10,145 10,55" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/><polygon points="100,40 160,70 160,130 100,160 40,130 40,70" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2"/></svg>
@@ -2273,7 +2485,7 @@
               <button type="button" class="welcome-prompt-card" data-prompt="Analyze this concept: ">Analyze this concept:</button>
               <button type="button" class="welcome-prompt-card" data-prompt="What's the difference between ">What's the difference between...</button>
             </div>
-            <p class="welcome-footer-note">Proccesa runs entirely in your browser. API calls go directly to Anthropic.</p>
+            <p class="welcome-footer-note">Proccesa Instant works immediately in the browser. Claude models need an API key. Local and server routes auto-upgrade when available.</p>
           </div>
           <div id="noKeyNotice" class="no-key-notice" style="display:none;">
             <svg class="icon-key" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 6a2 2 0 11-4 0 2 2 0 014 0z"/><path d="M4 10l2-2 4 4-5 5-2-2"/><path d="M9 7l1-1"/></svg>
@@ -2366,6 +2578,10 @@
           <span>Show token count</span>
           <div class="toggle-switch on" id="toggleShowTokens" role="button" tabindex="0" aria-pressed="true"></div>
         </div>
+        <div class="settings-toggle-row">
+          <span>FX sound</span>
+          <div class="toggle-switch on" id="toggleFxSound" role="button" tabindex="0" aria-pressed="true"></div>
+        </div>
         <div class="settings-slider-row">
           <label>Temperature: <span id="temperatureValue">0.7</span></label>
           <input type="range" class="settings-slider" id="settingsTemperature" min="0" max="1" step="0.1" value="0.7">
@@ -2406,7 +2622,7 @@
       <div class="settings-section settings-about">
         <div class="settings-section-title">About</div>
         <p>Proccesa v1.0.0</p>
-        <p>Runs locally. Your data never leaves your browser.</p>
+        <p>Instant mode runs in the browser. Cloud models need an API key. Local or server routes can auto-upgrade Proccesa.</p>
         <p>Powered by Anthropic Claude API</p>
       </div>
     </div>
@@ -2555,7 +2771,12 @@
       hexGridBg: document.getElementById('hexGridBg'),
       neuralAvatar: document.getElementById('neuralAvatar'),
       neuralAvatarCanvas: document.getElementById('neuralAvatarCanvas'),
-      neuralAvatarStatus: document.getElementById('neuralAvatarStatus')
+      neuralAvatarStatus: document.getElementById('neuralAvatarStatus'),
+      chatAiPanel: document.getElementById('chatAiPanel'),
+      chatAiMode: document.getElementById('chatAiMode'),
+      chatAiSub: document.getElementById('chatAiSub'),
+      chatOrb: document.getElementById('chatOrb'),
+      toggleFxSound: document.getElementById('toggleFxSound')
     };
 
     function getModelDisplayName(modelKey) {
@@ -4163,6 +4384,658 @@ PARAMETER top_p 0.9`;
       });
 
       window.addEventListener('resize', () => { setAppHeight(); queueLayoutRefresh(); });
+    }
+
+
+
+    // === PROCCESA PATCH LAYER ===
+    CONFIG.defaultModel = 'proccesa';
+    state.currentModel = 'proccesa';
+    state.proccesaMode = state.proccesaMode || 'instant';
+    state.proccesaServerAvailable = false;
+    state.soundEnabled = JSON.parse(localStorage.getItem('proccesa_sound_enabled') || 'true');
+    state.orbHoverLabel = '';
+    document.querySelectorAll('.model-pill').forEach(pill => {
+      pill.classList.toggle('active', pill.getAttribute('data-model') === 'proccesa');
+    });
+
+    if (el.toggleFxSound) {
+      el.toggleFxSound.classList.toggle('on', state.soundEnabled);
+      el.toggleFxSound.setAttribute('aria-pressed', state.soundEnabled);
+      el.toggleFxSound.addEventListener('click', () => {
+        state.soundEnabled = !state.soundEnabled;
+        el.toggleFxSound.classList.toggle('on', state.soundEnabled);
+        el.toggleFxSound.setAttribute('aria-pressed', state.soundEnabled);
+        localStorage.setItem('proccesa_sound_enabled', JSON.stringify(state.soundEnabled));
+        if (state.soundEnabled) playUiSound('hover');
+      });
+      el.toggleFxSound.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          el.toggleFxSound.click();
+        }
+      });
+    }
+
+    function getProccesaModeLabel(short = false) {
+      const mode = state.proccesaMode || 'instant';
+      if (mode === 'server') return short ? 'Server · free' : 'Proccesa server · free';
+      if (mode === 'local') return short ? 'Local · free' : 'Proccesa local · free';
+      return short ? 'Instant · free' : 'Proccesa instant · free';
+    }
+
+    function getModelDisplayName(modelKey) {
+      if (modelKey === 'proccesa') {
+        if (state.proccesaMode === 'server') return 'Proccesa Server';
+        if (state.proccesaMode === 'local') return 'Proccesa Local';
+        return 'Proccesa Instant';
+      }
+      return MODEL_DISPLAY_NAMES[modelKey] || (modelKey ? (modelKey.charAt(0).toUpperCase() + modelKey.slice(1)) : '');
+    }
+
+    function updateChatAiStatus() {
+      if (el.chatAiMode) {
+        el.chatAiMode.textContent = state.currentModel === 'proccesa' ? getModelDisplayName('proccesa') : getModelDisplayName(state.currentModel);
+      }
+      if (!el.chatAiSub) return;
+      if (state.orbHoverLabel) {
+        el.chatAiSub.textContent = state.orbHoverLabel;
+        return;
+      }
+      const moodText = {
+        idle: 'Standing by. The sphere reacts to focus, typing, thinking and response flow.',
+        listening: 'Reading your prompt and pulling key signals to the surface.',
+        focused: 'Locked on detail. Precision pass is active.',
+        excited: 'High-energy input detected. Response dynamics increased.',
+        thinking: 'Planning the answer and arranging the strongest path.',
+        speaking: 'Reply stream is active. The sphere tracks answer flow in real time.',
+        error: 'The response chain was interrupted. Check the route or try again.'
+      };
+      if (state.currentModel === 'proccesa') {
+        const base = state.proccesaMode === 'instant'
+          ? 'Proccesa Instant is running directly in the browser.'
+          : state.proccesaMode === 'server'
+            ? 'A same-origin server route is answering for Proccesa.'
+            : 'A local model is answering for Proccesa.';
+        el.chatAiSub.textContent = `${base} ${moodText[state.neuralMood] || moodText.idle}`;
+      } else {
+        el.chatAiSub.textContent = `${moodText[state.neuralMood] || moodText.idle} ${getModelDisplayName(state.currentModel)} is selected.`;
+      }
+    }
+
+    let proccesaAudioContext = null;
+    function getAudioContextSafe() {
+      if (!state.soundEnabled) return null;
+      const AudioCtor = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtor) return null;
+      if (!proccesaAudioContext) proccesaAudioContext = new AudioCtor();
+      if (proccesaAudioContext.state === 'suspended') {
+        proccesaAudioContext.resume().catch(() => {});
+      }
+      return proccesaAudioContext;
+    }
+
+    function playTone({ frequency = 440, duration = 0.08, type = 'sine', gain = 0.018, endFrequency = null, delay = 0 } = {}) {
+      const ctx = getAudioContextSafe();
+      if (!ctx) return;
+      const now = ctx.currentTime + delay;
+      const osc = ctx.createOscillator();
+      const amp = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(frequency, now);
+      if (endFrequency !== null && endFrequency !== undefined) {
+        osc.frequency.exponentialRampToValueAtTime(Math.max(30, endFrequency), now + duration);
+      }
+      amp.gain.setValueAtTime(0.0001, now);
+      amp.gain.exponentialRampToValueAtTime(Math.max(0.0002, gain), now + Math.min(0.02, duration * 0.35));
+      amp.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      osc.connect(amp);
+      amp.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.01);
+    }
+
+    function playUiSound(type = 'hover') {
+      if (!state.soundEnabled) return;
+      if (type === 'hover') {
+        playTone({ frequency: 700, endFrequency: 840, duration: 0.045, type: 'sine', gain: 0.013 });
+      } else if (type === 'send') {
+        playTone({ frequency: 320, endFrequency: 620, duration: 0.085, type: 'triangle', gain: 0.018 });
+        playTone({ frequency: 620, endFrequency: 760, duration: 0.05, type: 'sine', gain: 0.009, delay: 0.04 });
+      } else if (type === 'think') {
+        playTone({ frequency: 240, endFrequency: 340, duration: 0.09, type: 'triangle', gain: 0.012 });
+      } else if (type === 'receive') {
+        playTone({ frequency: 540, endFrequency: 420, duration: 0.09, type: 'sine', gain: 0.016 });
+        playTone({ frequency: 760, endFrequency: 660, duration: 0.07, type: 'sine', gain: 0.011, delay: 0.05 });
+      } else if (type === 'select') {
+        playTone({ frequency: 430, endFrequency: 690, duration: 0.07, type: 'triangle', gain: 0.015 });
+      } else if (type === 'error') {
+        playTone({ frequency: 280, endFrequency: 170, duration: 0.14, type: 'sawtooth', gain: 0.012 });
+      }
+    }
+
+    function cycleProfileFromOrb() {
+      const order = ['smart', 'code', 'research', 'creative'];
+      const idx = order.indexOf(state.profile);
+      state.profile = order[(idx + 1) % order.length];
+      syncProfilePills();
+      updateComposerStatus();
+      saveSettings();
+      state.orbHoverLabel = `Mode switched to ${state.profile}.`;
+      updateChatAiStatus();
+      playUiSound('select');
+      setNeuralMood('excited');
+      setTimeout(() => {
+        state.orbHoverLabel = '';
+        updateComposerEmotion();
+      }, 1200);
+    }
+
+    function createNeuralOrb(canvas, index = 0) {
+      const ctx = canvas.getContext('2d');
+      const host = canvas.closest('.neural-avatar');
+      const dense = host?.id === 'chatOrb' ? 620 : 540;
+      const orb = {
+        canvas,
+        ctx,
+        host,
+        points: buildNeuralOrbPoints(dense),
+        seed: Math.random() * Math.PI * 2,
+        rotX: 0.16 + index * 0.04,
+        rotY: -0.34 + index * 0.06,
+        rotZ: 0.08 + index * 0.03,
+        phase: Math.random() * Math.PI * 2,
+        pointer: { active: false, x: 0.32, y: 0.44, strength: 0, down: false }
+      };
+      if (host && host.dataset.orbBound !== 'true') {
+        host.dataset.orbBound = 'true';
+        host.addEventListener('pointerenter', () => {
+          orb.pointer.active = true;
+          orb.pointer.strength = 1;
+          state.orbHoverLabel = 'Signal lock engaged. Move the cursor across the sphere.';
+          updateChatAiStatus();
+          if (!state.isGenerating) setNeuralMood('focused');
+          playUiSound('hover');
+        });
+        host.addEventListener('pointermove', event => {
+          const rect = host.getBoundingClientRect();
+          orb.pointer.x = (event.clientX - rect.left) / Math.max(1, rect.width);
+          orb.pointer.y = (event.clientY - rect.top) / Math.max(1, rect.height);
+        });
+        host.addEventListener('pointerleave', () => {
+          orb.pointer.active = false;
+          orb.pointer.strength = 0;
+          state.orbHoverLabel = '';
+          updateComposerEmotion();
+        });
+        host.addEventListener('pointerdown', () => {
+          orb.pointer.down = true;
+          if (!state.isGenerating) setNeuralMood('excited');
+        });
+        host.addEventListener('pointerup', () => {
+          orb.pointer.down = false;
+        });
+        host.addEventListener('click', () => {
+          if (host.id === 'chatOrb') cycleProfileFromOrb();
+        });
+      }
+      return orb;
+    }
+
+    function drawNeuralOrb(orb, now) {
+      if (!orb?.ctx) return;
+      const dims = resizeOrbCanvas(orb.canvas);
+      const { ctx } = orb;
+      ctx.clearRect(0, 0, dims.width, dims.height);
+      const mood = state.neuralMood || 'idle';
+      const moodParams = getNeuralMoodParameters(mood);
+      const t = now * 0.001;
+      orb.rotY += moodParams.speed * 0.82;
+      orb.rotX += moodParams.speed * 0.24;
+      orb.rotZ += moodParams.speed * 0.1;
+      const cx = dims.width / 2;
+      const cy = dims.height / 2;
+      const radius = Math.min(dims.width, dims.height) * 0.265;
+      const halo = radius * (1.7 + moodParams.glow * 0.58 + (orb.pointer.active ? 0.15 : 0));
+      const pulse = 1 + Math.sin(t * 1.7 + orb.phase) * 0.024 * moodParams.pulse + (orb.pointer.down ? 0.03 : 0);
+      const beam = orb.canvas.parentElement?.querySelector('.neural-avatar-beam');
+      if (beam) beam.style.opacity = String(0.5 + 0.32 * moodParams.beam + (orb.pointer.active ? 0.12 : 0));
+
+      const haloGradient = ctx.createRadialGradient(cx, cy, radius * 0.08, cx, cy, halo);
+      if (mood === 'error') {
+        haloGradient.addColorStop(0, 'rgba(255,120,120,0.14)');
+        haloGradient.addColorStop(0.5, 'rgba(255,120,120,0.05)');
+      } else {
+        haloGradient.addColorStop(0, `rgba(112, 205, 255, ${0.11 + moodParams.glow * 0.13 + (orb.pointer.active ? 0.04 : 0)})`);
+        haloGradient.addColorStop(0.42, `rgba(82, 162, 255, ${0.035 + moodParams.glow * 0.08})`);
+      }
+      haloGradient.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = haloGradient;
+      ctx.beginPath();
+      ctx.arc(cx, cy, halo, 0, Math.PI * 2);
+      ctx.fill();
+
+      const pointerX = (orb.pointer.active ? (orb.pointer.x - 0.5) * 1.7 : -0.32 + Math.sin(t * (mood === 'thinking' ? 1.65 : 0.82) + orb.seed) * 0.14);
+      const pointerY = (orb.pointer.active ? (orb.pointer.y - 0.5) * 1.55 : 0.04 + Math.cos(t * 0.92 + orb.seed * 0.4) * 0.11);
+      const sweep = Math.sin(t * (mood === 'thinking' ? 4.5 : mood === 'speaking' ? 3.1 : 2.1) + orb.seed) * 0.09;
+
+      const projected = orb.points.map((point) => {
+        const driftX = Math.sin(t * 0.46 + point.seed) * 0.045;
+        const driftY = Math.cos(t * 0.41 + point.seed * 0.7) * 0.03;
+        const rotated = rotatePoint(point, orb.rotX + driftY, orb.rotY + driftX, orb.rotZ + Math.sin(t * 0.2 + point.seed) * 0.03);
+        const dx = rotated.x - (pointerX + sweep);
+        const dy = rotated.y - pointerY;
+        const focus = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) * 2.35);
+        const wave = Math.max(0, 1 - Math.abs(rotated.x + 0.08 + sweep * 1.2) * 1.55 - Math.abs(rotated.y - pointerY * 0.4) * 1.2);
+        const influence = orb.pointer.active ? focus * 0.1 : 0;
+        const perspective = 1.18 + rotated.z * 0.78;
+        const px = cx + (rotated.x + influence * (pointerX - rotated.x) * 0.5) * radius * perspective * pulse;
+        const py = cy + (rotated.y + influence * (pointerY - rotated.y) * 0.45) * radius * perspective * pulse;
+        const depth = (rotated.z + 1) / 2;
+        return { px, py, depth, focus, wave, point };
+      }).sort((a, b) => a.depth - b.depth);
+
+      for (const p of projected) {
+        const sparkle = (Math.sin(t * 2.3 + p.point.seed * 2.2) + 1) / 2;
+        const energy = Math.min(1, p.depth * 0.72 + p.focus * 0.9 + p.wave * 0.34 + sparkle * 0.08);
+        const size = 0.26 + p.depth * 0.82 + p.focus * 0.8 + p.wave * 0.26 + (orb.pointer.active ? 0.05 : 0);
+        const alpha = 0.04 + p.depth * 0.18 + p.wave * 0.14 + p.focus * (0.16 + moodParams.spark * 0.22);
+        if (mood === 'error') ctx.fillStyle = `rgba(255, ${130 + Math.round(p.depth * 30)}, ${130 + Math.round(p.depth * 26)}, ${alpha})`;
+        else if (p.focus > 0.28 || p.wave > 0.36) ctx.fillStyle = `rgba(228, 246, 255, ${Math.min(1, alpha + 0.18)})`;
+        else ctx.fillStyle = `rgba(${136 + Math.round(p.depth * 58)}, ${178 + Math.round(energy * 40)}, 255, ${alpha})`;
+        ctx.beginPath();
+        ctx.arc(p.px, p.py, size * dims.ratio, 0, Math.PI * 2);
+        ctx.fill();
+        if (p.focus > 0.5 || (mood === 'speaking' && sparkle > 0.9)) {
+          ctx.fillStyle = mood === 'error'
+            ? 'rgba(255,150,150,0.08)'
+            : `rgba(120, 214, 255, ${0.04 + p.focus * 0.12})`;
+          ctx.beginPath();
+          ctx.arc(p.px, p.py, size * 2.8 * dims.ratio, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    function startNeuralOrbSystem() {
+      const canvases = Array.from(document.querySelectorAll('.neural-avatar-canvas'));
+      state.neuralOrbs = canvases.map((canvas, index) => createNeuralOrb(canvas, index));
+      if (!state.neuralOrbs.length) return;
+      if (state.neuralOrbFrame) cancelAnimationFrame(state.neuralOrbFrame);
+      const loop = now => {
+        state.neuralOrbs.forEach(orb => drawNeuralOrb(orb, now));
+        state.neuralOrbFrame = requestAnimationFrame(loop);
+      };
+      state.neuralOrbFrame = requestAnimationFrame(loop);
+      setNeuralMood(state.neuralMood || 'idle');
+    }
+
+    function setNeuralMood(mood = 'idle') {
+      state.neuralMood = mood;
+      document.querySelectorAll('.neural-avatar').forEach(node => node.setAttribute('data-mood', mood));
+      if (el.neuralAvatarStatus) el.neuralAvatarStatus.textContent = NEURAL_MOOD_LABELS[mood] || 'Idle';
+      updateChatAiStatus();
+    }
+
+    function updateTokenCounter() {
+      if (!el.tokenCounter) return;
+      if (state.currentModel === 'proccesa') {
+        if (!state.showTokens) {
+          el.tokenCounter.textContent = getProccesaModeLabel(true);
+        } else {
+          el.tokenCounter.textContent = state.proccesaMode === 'instant' ? '∞ instant tokens' : getProccesaModeLabel(true);
+        }
+        return;
+      }
+      if (!state.showTokens) {
+        el.tokenCounter.textContent = 'Tokens hidden';
+        return;
+      }
+      el.tokenCounter.textContent = `~${state.sessionTokensUsed} tokens`;
+    }
+
+    function updateComposerStatus() {
+      if (!el.composerStatusPill) return;
+      const isLocal = state.currentModel === 'proccesa';
+      el.composerStatusPill.classList.toggle('local', isLocal);
+      el.composerStatusPill.textContent = isLocal
+        ? `${getProccesaModeLabel(false)} · ${state.profile}`
+        : `${getModelDisplayName(state.currentModel)} · cloud · ${state.profile}`;
+      updateChatAiStatus();
+      syncProfilePills();
+      updateTokenCounter();
+    }
+
+    async function checkOllamaAvailability() {
+      const base = getOllamaEndpoint();
+      const url = base + '/api/tags';
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 1600);
+      try {
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
+        const data = await res.json();
+        const models = data.models || [];
+        const modelName = getOllamaModel();
+        const hasModel = models.some(m => (m.name || '').startsWith(modelName));
+        state.ollamaStatus = hasModel ? 'ready' : 'no-model';
+      } catch (_) {
+        clearTimeout(timeout);
+        state.ollamaStatus = 'offline';
+      }
+      updateProccesaPillStatus();
+      return state.ollamaStatus;
+    }
+
+    function updateProccesaPillStatus() {
+      if (!el.proccesaAvailabilityDot || !el.proccesaPillTooltip) return;
+      el.proccesaAvailabilityDot.className = 'model-pill-availability-dot ready';
+      if (state.proccesaMode === 'server') el.proccesaPillTooltip.textContent = 'Server route connected';
+      else if (state.proccesaMode === 'local') el.proccesaPillTooltip.textContent = 'Local model ready';
+      else if (state.ollamaStatus === 'ready') el.proccesaPillTooltip.textContent = 'Instant mode ready · local model available';
+      else el.proccesaPillTooltip.textContent = 'Instant browser mode ready';
+    }
+
+    function updateProccesaSetupVisibility() {
+      if (el.proccesaSetupGuide) el.proccesaSetupGuide.style.display = 'none';
+    }
+
+    function renderSetupGuideContent() {
+      if (!el.proccesaSetupGuide) return;
+      el.proccesaSetupGuide.style.display = 'none';
+    }
+
+    async function fetchWithTimeout(url, options = {}, timeoutMs = 2600) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const res = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(timeout);
+        return res;
+      } catch (err) {
+        clearTimeout(timeout);
+        throw err;
+      }
+    }
+
+    function extractAnyText(payload) {
+      if (!payload) return '';
+      if (typeof payload === 'string') return payload;
+      if (typeof payload.text === 'string') return payload.text;
+      if (typeof payload.output_text === 'string') return payload.output_text;
+      if (payload.message?.content && typeof payload.message.content === 'string') return payload.message.content;
+      if (Array.isArray(payload.message?.content)) {
+        return payload.message.content.map(part => part?.text || part?.content || '').join('');
+      }
+      if (Array.isArray(payload.content)) {
+        return payload.content.map(part => part?.text || part?.content || '').join('');
+      }
+      if (Array.isArray(payload.choices)) {
+        return payload.choices.map(choice => choice?.message?.content || choice?.text || '').join('\n').trim();
+      }
+      return '';
+    }
+
+    function extractKeywords(text, limit = 6) {
+      const stop = new Set(['the','and','with','that','this','from','into','your','have','will','what','where','when','which','about','just','need','make','more','less','them','they','then','site','chat','model','neural','brain','our','best','smart','code','html','css','javascript','привет','сделай','нужно','чтобы','когда','если','только','можно','вроде','типа','сайт','модель','нейронка','нашей','сразу','после','почему','должно','будет','всего']);
+      const words = (text.toLowerCase().match(/[a-zа-яё0-9_-]{3,}/gi) || []).filter(word => !stop.has(word));
+      const counts = new Map();
+      words.forEach(word => counts.set(word, (counts.get(word) || 0) + 1));
+      return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, limit).map(([word]) => word);
+    }
+
+    function summarizeForInstant(text, maxSentences = 3) {
+      const cleaned = String(text || '').replace(/\s+/g, ' ').trim();
+      if (!cleaned) return '';
+      const sentences = cleaned.split(/(?<=[.!?])\s+/).filter(Boolean);
+      if (sentences.length <= maxSentences) return sentences.join(' ');
+      return sentences.slice(0, maxSentences).join(' ');
+    }
+
+    function guessIntent(text) {
+      const lower = text.toLowerCase();
+      if (/^(hi|hello|hey|yo|привет|здарова|салам|добрый)/i.test(text)) return 'greeting';
+      if (/rewrite|перепиши|улучши текст|сделай описание|отредактируй/i.test(lower)) return 'rewrite';
+      if (/name|названи|нейминг|бренд|слоган|придумай/i.test(lower)) return 'brainstorm';
+      if (/compare|разниц|vs\b|отличи|чем.*отлич/i.test(lower)) return 'compare';
+      if (/summar|summary|суммар|выжимк|кратко|сделай вывод/i.test(lower)) return 'summary';
+      if (/error|bug|fix|debug|исправ|почини|не работает|кнопк|функц|верстк|версель|vercel|html|css|js|react|node|supabase/i.test(lower)) return 'code';
+      if (/explain|объясни|что такое|как работает|why|how does|почему/i.test(lower)) return 'explain';
+      if (/plan|план|roadmap|этап|шаг/i.test(lower)) return 'plan';
+      return 'general';
+    }
+
+    function getAttachedContextPreview() {
+      if (!state.attachedFiles.length) return '';
+      return state.attachedFiles.map(file => `[${file.name}] ${summarizeForInstant(file.text, 2)}`).join('\n').slice(0, 1200);
+    }
+
+    function buildInstantGreeting() {
+      return `Я на месте. Сейчас Proccesa работает в instant-режиме прямо в браузере, без скачивания и без ключа.\n\nЯ уже умею:\n- объяснять идеи простым языком;\n- разбирать код, баги, UX и архитектуру;\n- помогать с текстами, названиями и планами.\n\nДля более сильного качества можно позже подключить серверный route или локальную модель, но пользоваться можно уже сейчас.`;
+    }
+
+    function buildInstantRewrite(text) {
+      const payload = text.split(/[:\n]/).slice(1).join(' ').trim();
+      const source = payload || text;
+      const polished = source.replace(/\s+/g, ' ').replace(/\s, /g, ', ').trim();
+      return `Вот более чистая версия:\n\n${polished.charAt(0).toUpperCase() + polished.slice(1)}\n\nЕсли нужен другой тон, я могу сделать ещё 3 варианта: жёстче, дороже по подаче или проще для новичка.`;
+    }
+
+    function buildInstantCompare(text) {
+      const keywords = extractKeywords(text, 4);
+      return `Сравнение по сути:\n\n1. Фокус: ${keywords[0] || 'первый вариант'} обычно лучше там, где важна скорость и простота. ${keywords[1] || 'второй вариант'} сильнее там, где важны контроль, гибкость и масштабирование.\n\n2. Цена ошибки: чем больше данных, логики и интеграций, тем выгоднее брать более управляемый вариант.\n\n3. Практический выбор: если задача ещё плавающая — бери более быстрый путь. Если уже нужен стабильный продакшен-контур — бери более строгую архитектуру.\n\nЕсли хочешь, я могу сделать точное сравнение по пунктам: скорость, цена, UX, масштабирование и риски.`;
+    }
+
+    function buildInstantExplain(text) {
+      const topic = text.replace(/^(explain|объясни|что такое|как работает)\s*/i, '').trim() || 'эту тему';
+      return `Объясняю ${topic} простым языком.\n\nСуть: это механизм, где важны входные данные, правила обработки и итоговое поведение системы. Обычно всё упирается в 3 вещи: что приходит на вход, как это преобразуется и где возникают ограничения.\n\nНа практике лучше разбирать это через пример, а не через абстракцию. Если нужно, следующим сообщением я разложу ${topic} по шагам: вход → обработка → результат → типичные ошибки.`;
+    }
+
+    function buildInstantPlan(text) {
+      const keywords = extractKeywords(text, 5).join(', ');
+      return `Нормальный план действий:\n\n1. Зафиксировать цель и критерий готовности.\n2. Разбить работу на интерфейс, логику, данные и проверку.\n3. Сначала собрать минимально рабочий путь без лишних эффектов.\n4. Потом добить UX, анимации, мобильную адаптацию и обработку ошибок.\n5. В конце — тестирование, чистка и деплой.\n\nФокус для этой задачи: ${keywords || 'ядро логики, стабильность и понятный UX'}.`;
+    }
+
+    function buildInstantSummary(text) {
+      const target = state.attachedFiles.length ? getAttachedContextPreview() : text.split(/[:\n]/).slice(1).join(' ').trim();
+      const summary = summarizeForInstant(target || text, 4);
+      return `Короткая выжимка:\n\n${summary || 'Нужен сам текст или прикреплённый контекст, чтобы сделать нормальную выжимку.'}\n\nЕсли надо, я могу сразу сделать ещё и список рисков, задач или выводов.`;
+    }
+
+    function buildInstantBrainstorm(text) {
+      const keywords = extractKeywords(text, 4);
+      const seed = (keywords[0] || 'nova').replace(/[^a-zа-яё0-9]/gi, '').slice(0, 8) || 'nova';
+      const title = seed.charAt(0).toUpperCase() + seed.slice(1);
+      const names = [`Proccesa ${title}`, `${title} Core`, `${title} Flux`, `Neuro ${title}`, `${title} Grid`, `${title} Pulse`];
+      return `Идеи в нужной подаче:\n\n${names.map((name, index) => `${index + 1}. ${name}`).join('\n')}\n\nЕсли скажешь стиль — premium, sci-fi, corporate, dark-tech или minimal — я добью ещё точнее.`;
+    }
+
+    function buildInstantCode(text) {
+      const keywords = extractKeywords(text, 6);
+      const focus = keywords.length ? keywords.join(', ') : 'ui, state, events, data flow';
+      const lang = /python|py\b/i.test(text) ? 'python' : /react|tsx|jsx/i.test(text) ? 'tsx' : /node|express|server/i.test(text) ? 'js' : 'js';
+      const snippet = lang === 'python'
+        ? `def audit_issue(state):\n    problems = []\n    if not state.get("ready"):\n        problems.append("initialize flow")\n    if state.get("handlers_missing"):\n        problems.append("bind handlers")\n    return problems`
+        : `function stabilizeUi(app) {\n  app.syncState();\n  app.bindEvents();\n  app.updateInteractiveNodes();\n  app.safeScrollToBottom();\n}`;
+      return `Быстрый технический разбор.\n\nГлавный фокус сейчас: ${focus}.\n\nЧто проверить первым:\n1. Инициализация состояния после загрузки.\n2. Все ли кнопки реально привязаны к обработчикам.\n3. Не ломает ли поток одна ошибка в JS, после которой остальной UI перестаёт отвечать.\n4. Корректно ли обновляются DOM-узлы после динамической перерисовки.\n5. Нет ли конфликта между desktop и mobile логикой.\n\nСтартовый паттерн стабилизации:\n\n\`\`\`${lang}\n${snippet}\n\`\`\`\n\nЕсли хочешь точный фикс, пришли конкретный кусок, ошибку или файл — я разложу root cause и дам уже адресное решение.`;
+    }
+
+    function buildInstantGeneral(text) {
+      const keywords = extractKeywords(text, 6);
+      const contextPreview = getAttachedContextPreview();
+      const recent = getCurrentMessages().slice(-4).map(msg => `${msg.role === 'assistant' ? 'AI' : 'User'}: ${summarizeForInstant(msg.content, 1)}`).join(' | ');
+      const profileHint = {
+        smart: 'Дам самый практичный и сбалансированный ответ.',
+        code: 'Смотрю на задачу как инженер: структура, баги, производительность, крайние случаи.',
+        research: 'Смотрю как аналитик: гипотезы, риски, сравнение вариантов и вывод.',
+        creative: 'Смотрю как продуктовый и визуальный креатор: идея, подача, стиль и упаковка.'
+      };
+      return `${profileHint[state.profile] || profileHint.smart}\n\nСильнейший текущий ход:\n- выделить ядро задачи;\n- убрать всё, что мешает базовому рабочему пути;\n- после этого уже усиливать дизайн, анимации и микро-фичи.\n\nКонтекст, который я вижу: ${keywords.join(', ') || 'задача без явных ключевых слов'}.${contextPreview ? `\n\nЛокальный контекст: ${contextPreview}` : ''}${recent ? `\n\nКороткая память чата: ${recent}` : ''}\n\nЕсли нужен более точный ответ, сформулируй задачу в формате: цель → что уже есть → что ломается → что именно хочешь на выходе.`;
+    }
+
+    function generateInstantCoreResponse(userContent) {
+      const cleaned = expandSlashCommand(userContent).trim();
+      const intent = guessIntent(cleaned);
+      if (!cleaned) return 'Напиши задачу, и я сразу включусь.';
+      if (intent === 'greeting') return buildInstantGreeting();
+      if (intent === 'rewrite') return buildInstantRewrite(cleaned);
+      if (intent === 'compare') return buildInstantCompare(cleaned);
+      if (intent === 'summary') return buildInstantSummary(cleaned);
+      if (intent === 'brainstorm') return buildInstantBrainstorm(cleaned);
+      if (intent === 'code') return buildInstantCode(cleaned);
+      if (intent === 'explain') return buildInstantExplain(cleaned);
+      if (intent === 'plan') return buildInstantPlan(cleaned);
+      return buildInstantGeneral(cleaned);
+    }
+
+    async function streamSyntheticResponse(text, modelKey = 'proccesa', pace = 8) {
+      const typing = document.getElementById('typingIndicator');
+      typing?.remove();
+      const { msg, contentEl } = addStreamingMessage(modelKey);
+      let cursorEl = appendStreamCursor(contentEl);
+      const parts = text.split(/(\s+)/).filter(part => part.length > 0);
+      let full = '';
+      for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        if (cursorEl) cursorEl.remove();
+        appendStreamWord(contentEl, part);
+        full += part;
+        cursorEl = appendStreamCursor(contentEl);
+        el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
+        state.sessionTokensUsed += /\S/.test(part) ? Math.ceil(part.length / 5) : 0;
+        updateTokenCounter();
+        if (i % 6 === 0) setNeuralMood('speaking');
+        await new Promise(resolve => setTimeout(resolve, /\s/.test(part) ? Math.max(12, pace - 2) : pace));
+      }
+      if (cursorEl) cursorEl.remove();
+      msg.classList.remove('streaming');
+      renderCodeBlocks(msg);
+      return full;
+    }
+
+    async function sendToProccesa(userContent, modelKey = 'proccesa') {
+      const messages = buildPreparedMessages(userContent);
+      const system = buildSystemPrompt(modelKey) + '\n\nExpert kernel: think step by step internally, keep the visible answer practical, preserve user constraints, avoid filler, improve architecture when relevant, and prefer production-safe fixes over superficial patches.';
+
+      try {
+        const res = await fetchWithTimeout('/api/proccesa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ system, messages, temperature: state.temperature, profile: state.profile, stream: false })
+        }, 2200);
+        if (res.ok) {
+          state.proccesaServerAvailable = true;
+          state.proccesaMode = 'server';
+          updateProccesaPillStatus();
+          updateComposerStatus();
+          const payload = await res.json().catch(() => ({}));
+          const text = extractAnyText(payload) || 'Server route responded with an empty payload.';
+          return { kind: 'text', text };
+        }
+      } catch (_) {}
+
+      try {
+        if (state.ollamaStatus === 'ready') {
+          state.proccesaMode = 'local';
+          updateProccesaPillStatus();
+          updateComposerStatus();
+          const resOrStream = await sendToOllama(userContent, modelKey);
+          return { kind: state.streamEnabled ? 'ollama-stream' : 'ollama-json', payload: resOrStream };
+        }
+      } catch (_) {}
+
+      state.proccesaMode = 'instant';
+      updateProccesaPillStatus();
+      updateComposerStatus();
+      return { kind: 'text', text: generateInstantCoreResponse(userContent) };
+    }
+
+    async function sendMessage() {
+      const text = el.inputTextarea.value.trim();
+      if (!text || state.isGenerating) return;
+
+      const modelUsed = state.currentModel;
+      const useProccesa = modelUsed === 'proccesa';
+      if (!useProccesa && !getApiKey()) {
+        el.noKeyNotice.style.display = 'block';
+        el.welcomeScreen.style.display = 'none';
+        return;
+      }
+
+      playUiSound('send');
+      if (useProccesa) el.noKeyNotice.style.display = 'none';
+      if (el.welcomeScreen && !el.welcomeScreen.classList.contains('hidden')) {
+        hideWelcomeWithAnimation();
+      }
+      if (!useProccesa) el.noKeyNotice.style.display = 'none';
+
+      ensureConversation();
+      addMessage('user', text, modelUsed);
+      addToConversation('user', text, modelUsed);
+      resetComposer();
+
+      state.isGenerating = true;
+      setNeuralMood('thinking');
+      playUiSound('think');
+      el.connectionStatus.textContent = state.streamEnabled ? 'Streaming…' : 'Thinking…';
+      updateSendButton();
+      renderConversations();
+      const typingEl = addTypingIndicator();
+
+      try {
+        if (useProccesa) {
+          const result = await sendToProccesa(text, modelUsed);
+          let fullText = '';
+          if (result.kind === 'ollama-stream') {
+            fullText = await streamOllamaResponse(result.payload, modelUsed);
+          } else if (result.kind === 'ollama-json') {
+            typingEl?.remove();
+            const payload = await result.payload.json();
+            fullText = extractAnyText(payload) || '';
+            state.sessionTokensUsed += Math.ceil(fullText.length / 4);
+            addMessage('assistant', fullText, modelUsed, { modelLabel: getModelDisplayName(modelUsed) });
+            renderCodeBlocks(el.messagesList.lastElementChild);
+          } else {
+            fullText = state.streamEnabled
+              ? await streamSyntheticResponse(result.text, modelUsed, state.proccesaMode === 'instant' ? 7 : 5)
+              : result.text;
+            if (!state.streamEnabled) {
+              typingEl?.remove();
+              addMessage('assistant', fullText, modelUsed, { modelLabel: getModelDisplayName(modelUsed) });
+              renderCodeBlocks(el.messagesList.lastElementChild);
+            }
+          }
+          if (fullText) addToConversation('assistant', fullText, modelUsed);
+        } else {
+          const resOrStream = await sendToApi(text, modelUsed);
+          if (!resOrStream) return;
+          if (state.streamEnabled) {
+            const fullText = await streamResponse(resOrStream, modelUsed);
+            addToConversation('assistant', fullText, modelUsed);
+          } else {
+            typingEl?.remove();
+            const fullText = await getNonStreamResponse(resOrStream);
+            addMessage('assistant', fullText, modelUsed, { modelLabel: getModelDisplayName(modelUsed) });
+            addToConversation('assistant', fullText, modelUsed);
+            renderCodeBlocks(el.messagesList.lastElementChild);
+          }
+        }
+        playUiSound('receive');
+      } catch (err) {
+        setNeuralMood('error');
+        playUiSound('error');
+        const errorMessage = err?.message || 'Unknown error';
+        addMessage('assistant', `Error: ${errorMessage}`, null, { isError: true, modelLabel: 'Error' });
+        addToConversation('assistant', `[Error] ${errorMessage}`, modelUsed);
+      } finally {
+        typingEl?.remove();
+        state.isGenerating = false;
+        el.connectionStatus.textContent = 'Ready';
+        updateSendButton();
+        renderConversations();
+        updateComposerStatus();
+        updateComposerEmotion();
+      }
     }
 
     // === RUN ===
