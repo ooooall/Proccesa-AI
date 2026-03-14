@@ -2370,6 +2370,328 @@
       }
     }
 
+
+
+    /* === Scroll / bounds / smartphone hotfix pack === */
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      height: var(--app-height);
+    }
+
+    .app-wrap {
+      height: var(--app-height);
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .sidebar,
+    .main-panel,
+    .conversations-list,
+    .messages-container {
+      min-height: 0;
+    }
+
+    .main-panel {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .model-bar,
+    .messages-container,
+    .input-panel {
+      padding-left: max(24px, calc(24px + env(safe-area-inset-left)));
+      padding-right: max(24px, calc(24px + env(safe-area-inset-right)));
+    }
+
+    .messages-container {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      scroll-behavior: auto;
+      scroll-padding-top: 18px;
+      scroll-padding-bottom: calc(var(--input-panel-height, 0px) + 18px);
+      padding-top: 24px;
+      padding-bottom: 18px;
+    }
+
+    .messages-inner {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    #messagesList {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding-bottom: 4px;
+    }
+
+    .welcome-screen,
+    #noKeyNotice,
+    #proccesaSetupGuide {
+      width: 100%;
+    }
+
+    .message {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .message.assistant .message-bubble {
+      width: min(100%, 720px);
+      max-width: 100%;
+    }
+
+    .message.user .message-bubble {
+      width: fit-content;
+      max-width: min(100%, 560px);
+    }
+
+    .message-content {
+      overflow-wrap: anywhere;
+    }
+
+    .input-panel {
+      padding-top: 14px;
+      padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    }
+
+    .input-wrap,
+    .chat-ai-panel,
+    .message.assistant .message-bubble,
+    .message.user .message-bubble {
+      max-width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --sidebar-width: min(82vw, 320px);
+      }
+
+      .sidebar {
+        width: var(--sidebar-width);
+        min-width: var(--sidebar-width);
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(calc(-1 * var(--sidebar-width) - 18px));
+        transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease;
+        z-index: 80;
+        box-shadow: none;
+      }
+
+      .sidebar.expanded {
+        width: var(--sidebar-width);
+        transform: translateX(0);
+        box-shadow: 24px 0 50px rgba(0,0,0,0.35);
+      }
+
+      .sidebar-header .sidebar-logo span,
+      .btn-new-chat span,
+      .conversation-item-title,
+      .conversation-item-time,
+      .conversations-group-label,
+      .btn-settings span,
+      .api-status span {
+        display: inline;
+      }
+
+      .sidebar-logo {
+        justify-content: flex-start;
+        width: auto;
+        padding: 0;
+      }
+
+      .btn-new-chat {
+        justify-content: center;
+        padding: 0 14px;
+        margin-top: 12px;
+      }
+
+      .conversation-item {
+        justify-content: flex-start;
+        padding: 10px 12px;
+      }
+
+      .conversation-item-chevron {
+        display: flex !important;
+      }
+
+      .conversation-item-delete {
+        display: inline-flex !important;
+        opacity: 1;
+      }
+
+      .conversation-item.active::after {
+        display: block !important;
+      }
+
+      .sidebar-footer {
+        justify-content: space-between;
+      }
+
+      .model-bar {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        padding-left: max(62px, calc(62px + env(safe-area-inset-left)));
+        gap: 10px;
+      }
+
+      .model-pills {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      .model-pills::-webkit-scrollbar {
+        display: none;
+      }
+
+      .model-pill-wrap {
+        flex: 0 0 auto;
+      }
+
+      .model-pill-wrap .model-pill-subtitle,
+      .model-indicator-slider {
+        display: none;
+      }
+
+      .model-pill {
+        min-width: max-content;
+        height: 34px;
+        padding: 0 12px;
+        font-size: 10px;
+      }
+
+      .model-bar-right {
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .messages-container {
+        padding-top: 16px;
+        padding-bottom: 14px;
+        padding-left: max(14px, calc(14px + env(safe-area-inset-left)));
+        padding-right: max(14px, calc(14px + env(safe-area-inset-right)));
+      }
+
+      .chat-ai-panel {
+        top: 0;
+        margin-bottom: 12px;
+        padding: 12px 13px;
+        border-radius: 20px;
+      }
+
+      .chat-ai-orb {
+        width: 72px;
+        height: 72px;
+      }
+
+      .chat-ai-title {
+        font-size: 12px;
+      }
+
+      .chat-ai-mode {
+        font-size: 9px;
+      }
+
+      .chat-ai-sub {
+        font-size: 11px;
+      }
+
+      .message {
+        margin-bottom: 14px;
+      }
+
+      .message.assistant .message-bubble {
+        width: 100%;
+      }
+
+      .message.user .message-bubble {
+        max-width: min(100%, 92%);
+      }
+
+      .message-label,
+      .message-model-pill,
+      .chat-ai-hint,
+      .input-token-estimate {
+        font-size: 9px;
+      }
+
+      .input-panel {
+        padding-top: 10px;
+        padding-left: max(12px, calc(12px + env(safe-area-inset-left)));
+        padding-right: max(12px, calc(12px + env(safe-area-inset-right)));
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      }
+
+      .input-wrap {
+        padding: 10px 10px;
+        border-radius: 20px;
+      }
+
+      .input-textarea {
+        font-size: 16px;
+        line-height: 1.6;
+        max-height: 140px;
+      }
+
+      .input-footer {
+        gap: 8px;
+      }
+
+      .btn-send {
+        width: 48px;
+        height: 48px;
+      }
+
+      .settings-overlay {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        width: auto;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .model-bar-right > span {
+        min-height: 28px;
+        padding: 0 9px;
+        font-size: 10px;
+      }
+
+      .top-action-btn {
+        min-height: 30px;
+        padding: 0 10px;
+      }
+
+      .chat-ai-panel {
+        align-items: flex-start;
+      }
+
+      .message.assistant .message-bubble,
+      .message.user .message-bubble {
+        border-radius: 20px;
+      }
+
+      .welcome-screen {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2700,7 +3022,8 @@
       attachedFiles: [],
       neuralMood: 'idle',
       neuralOrbFrame: null,
-      neuralOrbs: []
+      neuralOrbs: [],
+      chatPinnedToBottom: true
     };
 
     // === DOM REFS ===
@@ -2795,6 +3118,48 @@
     function detectEnvironment() {
       document.body.classList.toggle('is-safari', isSafariBrowser());
       setAppHeight();
+    }
+
+    function getChatBottomDistance() {
+      if (!el.messagesContainer) return 0;
+      return Math.max(0, el.messagesContainer.scrollHeight - el.messagesContainer.scrollTop - el.messagesContainer.clientHeight);
+    }
+
+    function isChatNearBottom(threshold = 88) {
+      return getChatBottomDistance() <= threshold;
+    }
+
+    function refreshChatScrollState() {
+      state.chatPinnedToBottom = isChatNearBottom(88);
+    }
+
+    function scrollMessagesToBottom(force = false) {
+      if (!el.messagesContainer) return;
+      if (!force && !state.chatPinnedToBottom && !isChatNearBottom(120)) return;
+      requestAnimationFrame(() => {
+        if (!el.messagesContainer) return;
+        try {
+          el.messagesContainer.scrollTo({ top: el.messagesContainer.scrollHeight, behavior: 'auto' });
+        } catch (_) {
+          scrollMessagesToBottom();
+        }
+        state.chatPinnedToBottom = true;
+      });
+    }
+
+    function syncViewportLayout(keepPinned = true) {
+      setAppHeight();
+      const modelBarHeight = document.querySelector('.model-bar')?.offsetHeight || 0;
+      const inputPanelHeight = document.querySelector('.input-panel')?.offsetHeight || 0;
+      document.documentElement.style.setProperty('--model-bar-height', `${modelBarHeight}px`);
+      document.documentElement.style.setProperty('--input-panel-height', `${inputPanelHeight}px`);
+      if (keepPinned) scrollMessagesToBottom();
+    }
+
+    function handleViewportResize() {
+      syncViewportLayout(false);
+      queueLayoutRefresh();
+      refreshChatScrollState();
     }
 
     function getCurrentConversationObject() {
@@ -3103,6 +3468,7 @@
       state.attachedFiles = [];
       el.messagesList.innerHTML = '';
       showWelcome(true);
+      scrollMessagesToBottom(true);
       renderConversations();
       renderAttachedFiles();
       updateComposerStatus();
@@ -3231,6 +3597,7 @@ ${file.text}`).join('\n\n').slice(0, 32000)}` : '';
       updateSendButton();
       updateTokenEstimate();
       updateComposerEmotion();
+      syncViewportLayout(true);
       el.inputTextarea.focus();
     }
 
@@ -3513,6 +3880,7 @@ PARAMETER top_p 0.9`;
       el.inputTextarea.style.height = 'auto';
       updateSendButton();
       updateTokenEstimate();
+      syncViewportLayout();
     }
 
     function openConversationById(id, options = {}) {
@@ -3533,6 +3901,7 @@ PARAMETER top_p 0.9`;
       document.title = `Proccesa — ${conv.title}`;
       renderConversations();
       updateComposerStatus();
+      scrollMessagesToBottom(true);
       if (window.innerWidth <= 768) el.sidebar.classList.remove('expanded');
       if (options.focusInput !== false) el.inputTextarea.focus();
     }
@@ -3638,7 +4007,7 @@ PARAMETER top_p 0.9`;
         navigator.clipboard.writeText(text);
       });
       el.messagesList.appendChild(msg);
-      el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
+      scrollMessagesToBottom();
       return msg;
     }
 
@@ -3653,7 +4022,7 @@ PARAMETER top_p 0.9`;
       </div>`;
       const contentEl = msg.querySelector('.message-content');
       el.messagesList.appendChild(msg);
-      el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
+      scrollMessagesToBottom();
       msg.querySelector('[data-copy]')?.addEventListener('click', () => {
         navigator.clipboard.writeText(contentEl.innerText || '');
       });
@@ -3680,7 +4049,7 @@ PARAMETER top_p 0.9`;
       div.id = 'typingIndicator';
       div.innerHTML = '<span class="typing-indicator-orb"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>';
       el.messagesList.appendChild(div);
-      el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
+      scrollMessagesToBottom();
       return div;
     }
 
@@ -3834,7 +4203,7 @@ PARAMETER top_p 0.9`;
                   else appendStreamWord(contentEl, ' ');
                 });
                 cursorEl = appendStreamCursor(contentEl);
-                el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
+                scrollMessagesToBottom();
                 state.sessionTokensUsed += Math.ceil(content.length / 4);
                 updateTokenCounter();
               }
@@ -3896,7 +4265,7 @@ PARAMETER top_p 0.9`;
                     }
                   });
                   cursorEl = appendStreamCursor(contentEl);
-                  el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
+                  scrollMessagesToBottom();
                   state.sessionTokensUsed += Math.ceil(text.length / 4);
                   updateTokenCounter();
                 }
@@ -4197,6 +4566,7 @@ PARAMETER top_p 0.9`;
           el.inputTextarea.style.height = 'auto';
           el.inputTextarea.style.height = el.inputTextarea.scrollHeight + 'px';
         }
+        syncViewportLayout();
       });
       el.conversationSearch?.addEventListener('input', () => { state.conversationFilter = el.conversationSearch.value; renderConversations(); });
       el.btnExportChat?.addEventListener('click', () => exportCurrentConversation('md'));
@@ -4216,6 +4586,7 @@ PARAMETER top_p 0.9`;
         el.inputTextarea.style.height = 'auto';
         updateSendButton();
         updateTokenEstimate();
+        syncViewportLayout();
         el.inputTextarea.focus();
       });
 
@@ -4371,6 +4742,12 @@ PARAMETER top_p 0.9`;
           el.sidebar.classList.remove('expanded');
         }
       });
+
+      el.messagesContainer?.addEventListener('scroll', refreshChatScrollState, { passive: true });
+      window.addEventListener('resize', handleViewportResize, { passive: true });
+      window.addEventListener('orientationchange', handleViewportResize, { passive: true });
+      window.visualViewport?.addEventListener('resize', handleViewportResize, { passive: true });
+      window.visualViewport?.addEventListener('scroll', handleViewportResize, { passive: true });
 
       ['toggleStream', 'toggleShowTokens', 'toggleUseMemory', 'toggleLocalBoost'].forEach(key => {
         const node = el[key];
@@ -4901,7 +5278,7 @@ PARAMETER top_p 0.9`;
         appendStreamWord(contentEl, part);
         full += part;
         cursorEl = appendStreamCursor(contentEl);
-        el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
+        scrollMessagesToBottom();
         state.sessionTokensUsed += /\S/.test(part) ? Math.ceil(part.length / 5) : 0;
         updateTokenCounter();
         if (i % 6 === 0) setNeuralMood('speaking');
