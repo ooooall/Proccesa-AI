@@ -1985,6 +1985,48 @@
       }
     }
 
+
+    :root { --app-height: 100vh; }
+    @supports (height: 100dvh) { :root { --app-height: 100dvh; } }
+    body, .app-wrap, .sidebar, .main-panel { min-height: var(--app-height); }
+    body { -webkit-text-size-adjust: 100%; }
+    .hidden-native-input { position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; pointer-events:none; }
+    .sidebar-search-wrap { position:relative; margin-top:12px; }
+    .sidebar-search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:14px; height:14px; color:var(--text-muted); pointer-events:none; }
+    .sidebar-search { width:100%; min-height:40px; padding:0 12px 0 34px; border-radius:14px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--text-primary); outline:none; transition:border-color var(--transition), background var(--transition), box-shadow var(--transition); font-family:'DM Sans',sans-serif; font-size:12px; }
+    .sidebar-search::placeholder { color:var(--text-muted); }
+    .sidebar-search:focus { border-color:rgba(139,94,60,0.24); background:rgba(139,94,60,0.05); box-shadow:0 0 0 5px rgba(139,94,60,0.08); }
+    .top-action-btn,.composer-tool-btn,.data-btn,.profile-pill,.profile-inline-pill { border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); color:var(--text-secondary); transition:transform var(--transition), border-color var(--transition), color var(--transition), background var(--transition), box-shadow var(--transition); }
+    .top-action-btn { min-height:32px; padding:0 12px; border-radius:999px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:11px; letter-spacing:0.04em; }
+    .top-action-btn:hover,.composer-tool-btn:hover,.data-btn:hover,.profile-pill:hover,.profile-inline-pill:hover { transform:translateY(-1px); color:var(--text-primary); border-color:rgba(139,94,60,0.22); background:rgba(139,94,60,0.08); box-shadow:0 12px 24px rgba(0,0,0,0.14); }
+    .composer-toolbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+    .composer-status { display:flex; align-items:center; gap:8px; flex-wrap:wrap; min-width:0; }
+    .status-pill { display:inline-flex; align-items:center; min-height:26px; padding:0 10px; border-radius:999px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); font-size:10px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.1em; font-family:'DM Sans',sans-serif; }
+    .status-pill.local { background:rgba(139,94,60,0.14); border-color:rgba(139,94,60,0.22); color:#f8ebe0; box-shadow:0 0 0 4px rgba(139,94,60,0.08); }
+    .profile-inline-pills,.profile-settings { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .profile-inline-pill,.profile-pill { min-height:28px; padding:0 10px; border-radius:999px; cursor:pointer; font-size:11px; font-family:'DM Sans',sans-serif; letter-spacing:0.04em; }
+    .profile-inline-pill.active,.profile-pill.active { background:linear-gradient(180deg, rgba(139,94,60,0.92), rgba(139,94,60,0.74)); border-color:rgba(183,124,77,0.42); color:#fff; box-shadow:0 12px 24px rgba(0,0,0,0.16), 0 0 0 5px rgba(139,94,60,0.08); }
+    .composer-tools { display:flex; align-items:center; gap:8px; margin-left:auto; }
+    .composer-tool-btn { min-height:34px; padding:0 12px; border-radius:12px; display:inline-flex; align-items:center; gap:7px; cursor:pointer; font-size:11px; font-family:'DM Sans',sans-serif; letter-spacing:0.04em; }
+    .composer-tool-btn svg { width:14px; height:14px; flex-shrink:0; }
+    .attached-files-list { display:none; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+    .attached-files-list.active { display:flex; }
+    .attached-file-chip { display:inline-flex; align-items:center; gap:8px; min-height:30px; padding:0 10px 0 12px; border-radius:999px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--text-secondary); font-size:11px; max-width:100%; font-family:'DM Sans',sans-serif; }
+    .attached-file-chip .name { min-width:0; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .attached-file-chip .meta { color:var(--text-muted); font-size:10px; }
+    .attached-file-remove { width:22px; height:22px; border:none; background:rgba(255,255,255,0.04); color:var(--text-secondary); border-radius:50%; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; }
+    .settings-button-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .data-btn { min-height:42px; padding:0 12px; border-radius:14px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:12px; letter-spacing:0.03em; }
+    .data-btn.danger { border-color:rgba(255,135,135,0.18); background:rgba(255,135,135,0.05); color:#ffbdbd; }
+    .toast-stack { position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom)); z-index:170; display:flex; flex-direction:column; gap:10px; pointer-events:none; }
+    .toast { min-width:220px; max-width:360px; padding:12px 14px; border-radius:16px; border:1px solid rgba(255,255,255,0.08); background:rgba(12,18,26,0.92); color:var(--text-primary); box-shadow:0 20px 46px rgba(0,0,0,0.24); transform:translateY(10px); opacity:0; animation:toastIn 220ms cubic-bezier(0.22,1,0.36,1) forwards; font-family:'DM Sans',sans-serif; font-size:12px; }
+    .toast.success { border-color:rgba(98,211,154,0.18); }
+    .toast.error { border-color:rgba(255,135,135,0.18); }
+    @keyframes toastIn { to { transform:translateY(0); opacity:1; } }
+    @supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) { .sidebar,.model-bar,.input-panel,.message-bubble,.settings-overlay { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; } .sidebar,.model-bar,.input-panel,.settings-overlay { background:rgba(10,14,20,0.98) !important; } }
+    body.is-safari .input-textarea,body.is-safari .settings-input-wrap input,body.is-safari .sidebar-search { font-size:16px; }
+    @media (max-width:768px) { .sidebar-search-wrap{display:none;} .composer-toolbar{align-items:stretch;} .composer-tools,.composer-status{width:100%;} .composer-tools{justify-content:space-between; margin-left:0;} .profile-inline-pills{width:100%; overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px;} .profile-inline-pills::-webkit-scrollbar{display:none;} .attached-file-chip .name{max-width:140px;} .settings-button-grid{grid-template-columns:1fr;} .toast-stack{left:14px; right:14px; bottom:calc(14px + env(safe-area-inset-bottom));} .toast{min-width:0; max-width:none;} .input-panel{padding-bottom:calc(18px + env(safe-area-inset-bottom));} }
+
   </style>
 </head>
 <body>
@@ -2004,6 +2046,10 @@
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3v10M3 8h10"/><circle cx="12" cy="4" r="1" fill="currentColor"/></svg>
           <span>New conversation</span>
         </button>
+        <div class="sidebar-search-wrap">
+          <svg class="sidebar-search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+          <input type="search" class="sidebar-search" id="conversationSearch" placeholder="Search chats" autocomplete="off" spellcheck="false">
+        </div>
       </div>
       <div class="conversations-list" id="conversationsList">
         <div class="conversations-empty" id="conversationsEmpty">Your conversations appear here</div>
@@ -2051,6 +2097,7 @@
           </div>
         </div>
         <div class="model-bar-right">
+          <button type="button" class="top-action-btn" id="btnExportChat">Export</button>
           <span id="connectionStatus"></span>
           <span id="tokenCounter">~0 tokens</span>
         </div>
@@ -2086,6 +2133,24 @@
 
       <div class="input-panel">
         <div class="input-wrap">
+          <div class="composer-toolbar">
+            <div class="composer-status">
+              <span class="status-pill" id="composerStatusPill">Cloud mode</span>
+              <div class="profile-inline-pills" id="inlineProfilePills">
+                <button type="button" class="profile-inline-pill active" data-profile="smart">Smart</button>
+                <button type="button" class="profile-inline-pill" data-profile="code">Code</button>
+                <button type="button" class="profile-inline-pill" data-profile="research">Research</button>
+                <button type="button" class="profile-inline-pill" data-profile="creative">Creative</button>
+              </div>
+            </div>
+            <div class="composer-tools">
+              <button type="button" class="composer-tool-btn" id="btnAttachContext">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8l4-4a2.5 2.5 0 113.5 3.5l-5.5 5.5A4 4 0 112.3 7.3L8 1.6"/></svg>
+                Attach
+              </button>
+            </div>
+          </div>
+          <div class="attached-files-list" id="attachedFilesList"></div>
           <textarea class="input-textarea" id="inputTextarea" rows="1" placeholder="Write your message..." autocomplete="off" aria-label="Message input"></textarea>
         </div>
         <div class="input-footer">
@@ -2103,6 +2168,7 @@
           </div>
         </div>
       </div>
+      <input type="file" id="contextFileInput" class="hidden-native-input" multiple accept=".txt,.md,.json,.csv,.js,.ts,.jsx,.tsx,.py,.html,.css,.xml,.yaml,.yml,.sql,.log,.ini,.toml,.java,.c,.cpp,.h,.hpp,.rs,.go,.sh,.php,.rb,.swift,.kt,.dart,.vue,.svelte,text/plain,text/markdown,application/json,text/csv">
     </main>
   </div>
 
@@ -2151,6 +2217,38 @@
           <input type="range" class="settings-slider" id="settingsTemperature" min="0" max="1" step="0.1" value="0.7">
         </div>
       </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Proccesa Local Boost</div>
+        <div class="settings-toggle-row">
+          <span>Use local memory packing</span>
+          <div class="toggle-switch on" id="toggleUseMemory" role="button" tabindex="0" aria-pressed="true"></div>
+        </div>
+        <div class="settings-toggle-row">
+          <span>Use smart prompt optimizer</span>
+          <div class="toggle-switch on" id="toggleLocalBoost" role="button" tabindex="0" aria-pressed="true"></div>
+        </div>
+        <div class="settings-slider-row">
+          <label>Context window: <span id="contextWindowValue">12</span> turns</label>
+          <input type="range" class="settings-slider" id="settingsContextWindow" min="6" max="24" step="2" value="12">
+        </div>
+        <div class="profile-settings" id="profilePills">
+          <button type="button" class="profile-pill active" data-profile="smart">Smart</button>
+          <button type="button" class="profile-pill" data-profile="code">Code</button>
+          <button type="button" class="profile-pill" data-profile="research">Research</button>
+          <button type="button" class="profile-pill" data-profile="creative">Creative</button>
+        </div>
+        <p class="settings-hint">Makes the local Proccesa model behave more intelligently by applying stronger task framing, context compression and reusable work modes.</p>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Data &amp; Export</div>
+        <div class="settings-button-grid">
+          <button type="button" class="data-btn" id="btnExportCurrentMd">Current chat .md</button>
+          <button type="button" class="data-btn" id="btnExportCurrentJson">Current chat .json</button>
+          <button type="button" class="data-btn" id="btnExportAllJson">Backup all chats</button>
+          <button type="button" class="data-btn danger" id="btnClearAllData">Clear local data</button>
+        </div>
+        <p class="settings-hint">Everything is created locally in the browser. No extra backend is used for export.</p>
+      </div>
       <div class="settings-section settings-about">
         <div class="settings-section-title">About</div>
         <p>Proccesa v1.0.0</p>
@@ -2159,6 +2257,8 @@
       </div>
     </div>
   </div>
+
+  <div class="toast-stack" id="toastStack"></div>
 
   <script>
     // === CONFIG & STATE ===
@@ -2221,7 +2321,13 @@
       temperature: 0.7,
       ollamaStatus: 'offline',
       resizeFrame: null,
-      logoScrambleTimer: null
+      logoScrambleTimer: null,
+      conversationFilter: '',
+      useMemory: true,
+      localBoost: true,
+      contextWindow: 12,
+      profile: 'smart',
+      attachedFiles: []
     };
 
     // === DOM REFS ===
@@ -2230,6 +2336,7 @@
       sidebarLogo: document.getElementById('sidebarLogo'),
       sidebarLogoText: document.getElementById('sidebarLogoText'),
       btnNewChat: document.getElementById('btnNewChat'),
+      conversationSearch: document.getElementById('conversationSearch'),
       conversationsList: document.getElementById('conversationsList'),
       conversationsEmpty: document.getElementById('conversationsEmpty'),
       conversationsGroups: document.getElementById('conversationsGroups'),
@@ -2243,6 +2350,7 @@
       modelSwitchNotice: document.getElementById('modelSwitchNotice'),
       connectionStatus: document.getElementById('connectionStatus'),
       tokenCounter: document.getElementById('tokenCounter'),
+      btnExportChat: document.getElementById('btnExportChat'),
       messagesContainer: document.getElementById('messagesContainer'),
       messagesInner: document.getElementById('messagesInner'),
       messagesList: document.getElementById('messagesList'),
@@ -2254,6 +2362,11 @@
       inputTokenEstimate: document.getElementById('inputTokenEstimate'),
       btnClearInput: document.getElementById('btnClearInput'),
       btnSend: document.getElementById('btnSend'),
+      composerStatusPill: document.getElementById('composerStatusPill'),
+      inlineProfilePills: document.getElementById('inlineProfilePills'),
+      btnAttachContext: document.getElementById('btnAttachContext'),
+      contextFileInput: document.getElementById('contextFileInput'),
+      attachedFilesList: document.getElementById('attachedFilesList'),
       settingsOverlay: document.getElementById('settingsOverlay'),
       settingsApiKey: document.getElementById('settingsApiKey'),
       btnToggleKeyVisibility: document.getElementById('btnToggleKeyVisibility'),
@@ -2272,6 +2385,16 @@
       btnTestOllama: document.getElementById('btnTestOllama'),
       settingsOllamaStatus: document.getElementById('settingsOllamaStatus'),
       btnSaveLocalSettings: document.getElementById('btnSaveLocalSettings'),
+      toggleUseMemory: document.getElementById('toggleUseMemory'),
+      toggleLocalBoost: document.getElementById('toggleLocalBoost'),
+      settingsContextWindow: document.getElementById('settingsContextWindow'),
+      contextWindowValue: document.getElementById('contextWindowValue'),
+      profilePills: document.getElementById('profilePills'),
+      btnExportCurrentMd: document.getElementById('btnExportCurrentMd'),
+      btnExportCurrentJson: document.getElementById('btnExportCurrentJson'),
+      btnExportAllJson: document.getElementById('btnExportAllJson'),
+      btnClearAllData: document.getElementById('btnClearAllData'),
+      toastStack: document.getElementById('toastStack'),
       hexGridBg: document.getElementById('hexGridBg')
     };
 
@@ -2279,8 +2402,244 @@
       return MODEL_DISPLAY_NAMES[modelKey] || (modelKey ? (modelKey.charAt(0).toUpperCase() + modelKey.slice(1)) : '');
     }
 
+    function isSafariBrowser() {
+      const ua = navigator.userAgent;
+      return /Safari/i.test(ua) && !/Chrome|CriOS|Android|Edg|OPR/i.test(ua);
+    }
+
+    function setAppHeight() {
+      document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+    }
+
+    function detectEnvironment() {
+      document.body.classList.toggle('is-safari', isSafariBrowser());
+      setAppHeight();
+    }
+
+    function getCurrentConversationObject() {
+      return state.conversations.find(c => c.id === state.currentConversationId) || null;
+    }
+
+    function syncProfilePills() {
+      [el.inlineProfilePills, el.profilePills].forEach(group => {
+        group?.querySelectorAll('[data-profile]').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-profile') === state.profile);
+        });
+      });
+    }
+
+    function updateTokenCounter() {
+      if (!el.tokenCounter) return;
+      updateTokenCounter();
+      if (!state.showTokens) return;
+      el.tokenCounter.textContent = state.currentModel === 'proccesa'
+        ? (state.isGenerating ? 'Local · free' : '∞ local tokens')
+        : `~${state.sessionTokensUsed} tokens`;
+    }
+
+    function updateComposerStatus() {
+      if (!el.composerStatusPill) return;
+      const isLocal = state.currentModel === 'proccesa';
+      el.composerStatusPill.classList.toggle('local', isLocal);
+      el.composerStatusPill.textContent = isLocal
+        ? `Proccesa local · free · ${state.profile}`
+        : `${getModelDisplayName(state.currentModel)} · cloud · ${state.profile}`;
+      syncProfilePills();
+      updateTokenCounter();
+    }
+
+    async function copyText(text) {
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch (_) {}
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (_) {}
+      ta.remove();
+      return ok;
+    }
+
+    function showToast(message, tone = 'info') {
+      if (!el.toastStack) return;
+      const toast = document.createElement('div');
+      toast.className = `toast ${tone}`;
+      toast.textContent = message;
+      el.toastStack.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        setTimeout(() => toast.remove(), 180);
+      }, 2400);
+    }
+
+    function slugify(value) {
+      return (value || 'conversation').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48) || 'conversation';
+    }
+
+    function saveFile(filename, content, mime = 'text/plain;charset=utf-8') {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 800);
+      showToast(`Downloaded ${filename}`, 'success');
+    }
+
+    function formatConversationMarkdown(conv) {
+      if (!conv) return '# Empty conversation\n';
+      const lines = [`# ${conv.title || 'Conversation'}`, '', `- Model: ${getModelDisplayName(conv.model)}`, `- Updated: ${new Date(conv.updatedAt || Date.now()).toLocaleString()}`, ''];
+      (conv.messages || []).forEach(msg => {
+        lines.push(`## ${msg.role === 'assistant' ? 'Assistant' : 'User'}`);
+        lines.push('');
+        lines.push(msg.content || '');
+        lines.push('');
+      });
+      return lines.join('\n');
+    }
+
+    function exportCurrentConversation(format = 'md') {
+      const conv = getCurrentConversationObject();
+      if (!conv) {
+        showToast('No active conversation to export', 'error');
+        return;
+      }
+      const base = slugify(conv.title || 'conversation');
+      if (format === 'json') saveFile(`${base}.json`, JSON.stringify(conv, null, 2), 'application/json;charset=utf-8');
+      else saveFile(`${base}.md`, formatConversationMarkdown(conv), 'text/markdown;charset=utf-8');
+    }
+
+    function exportAllConversations() {
+      saveFile('proccesa-backup.json', JSON.stringify({
+        exportedAt: new Date().toISOString(),
+        settings: {
+          streamEnabled: state.streamEnabled,
+          showTokens: state.showTokens,
+          temperature: state.temperature,
+          useMemory: state.useMemory,
+          localBoost: state.localBoost,
+          contextWindow: state.contextWindow,
+          profile: state.profile
+        },
+        conversations: state.conversations
+      }, null, 2), 'application/json;charset=utf-8');
+    }
+
+    function clearLocalData() {
+      const ok = window.confirm('This will remove saved chats, settings and local keys for this app in your browser. Continue?');
+      if (!ok) return;
+      Object.keys(localStorage).forEach(key => { if (key.startsWith('proccesa_')) localStorage.removeItem(key); });
+      state.conversations = [];
+      state.currentConversationId = null;
+      state.sessionTokensUsed = 0;
+      state.attachedFiles = [];
+      el.messagesList.innerHTML = '';
+      showWelcome(true);
+      renderConversations();
+      renderAttachedFiles();
+      updateComposerStatus();
+      showToast('Local app data cleared', 'success');
+    }
+
+    function createMemoryPack(messages) {
+      return messages.slice(-8).map(msg => {
+        const role = msg.role === 'assistant' ? 'Assistant' : 'User';
+        const snippet = (msg.content || '').replace(/\s+/g, ' ').trim().slice(0, 220);
+        return `- ${role}: ${snippet}`;
+      }).join('\n');
+    }
+
+    function getProfileInstruction() {
+      const profiles = {
+        smart: 'Work as a senior generalist assistant. Be accurate, structured and practical. Prefer the strongest answer instead of the fastest one.',
+        code: 'Optimize for software engineering. Explain architecture, edge cases, refactors, bugs, performance and production-safe implementation details.',
+        research: 'Optimize for analysis. Compare options, identify assumptions, surface risks, synthesize evidence and be methodical.',
+        creative: 'Optimize for concept generation, product thinking, naming, writing and polished presentation without losing clarity.'
+      };
+      return profiles[state.profile] || profiles.smart;
+    }
+
+    function expandSlashCommand(text) {
+      const trimmed = (text || '').trim();
+      const commands = {
+        '/code': 'Treat this as an engineering task. Return concrete implementation guidance, code where appropriate, edge cases and final checks.',
+        '/fix': 'Treat this as a debugging and repair task. Identify the root cause, fix the issue and explain what changed.',
+        '/analyze': 'Treat this as an analysis task. Decompose the problem, compare alternatives and provide a reasoned recommendation.',
+        '/ux': 'Treat this as a UX and interface task. Improve clarity, hierarchy, accessibility, motion and practical usability.',
+        '/rewrite': 'Treat this as a rewrite task. Produce a cleaner, more polished and more effective version.'
+      };
+      const match = Object.keys(commands).find(cmd => trimmed.startsWith(cmd + ' ') || trimmed === cmd);
+      if (!match) return trimmed;
+      return `${commands[match]}
+
+${trimmed.slice(match.length).trim()}`.trim();
+    }
+
+    function buildPreparedMessages(userContent) {
+      const history = getCurrentMessages().slice(-state.contextWindow);
+      return [...history.map(m => ({ role: m.role, content: m.content })), { role: 'user', content: expandSlashCommand(userContent) }];
+    }
+
+    function buildSystemPrompt(modelKey) {
+      const base = CONFIG.models[modelKey].system;
+      const older = getCurrentMessages().slice(0, Math.max(0, getCurrentMessages().length - state.contextWindow));
+      const memory = state.useMemory && older.length ? `Conversation memory:
+${createMemoryPack(older)}` : '';
+      const localBoost = state.localBoost ? 'Execution rules: think in layers, preserve constraints, prefer complete solutions, guard against edge cases, optimize for local-first workflows, and when coding, return code that is production-oriented and easy to integrate.' : '';
+      const attachmentContext = state.attachedFiles.length ? `Attached local context:
+${state.attachedFiles.map(file => `[${file.name}]
+${file.text}`).join('\n\n').slice(0, 32000)}` : '';
+      return [base, getProfileInstruction(), localBoost, memory, attachmentContext].filter(Boolean).join('\n\n');
+    }
+
+    function renderAttachedFiles() {
+      if (!el.attachedFilesList) return;
+      if (!state.attachedFiles.length) { el.attachedFilesList.innerHTML = ''; el.attachedFilesList.classList.remove('active'); return; }
+      el.attachedFilesList.classList.add('active');
+      el.attachedFilesList.innerHTML = state.attachedFiles.map(file => `<div class="attached-file-chip"><span class="name">${escapeHtml(file.name)}</span><span class="meta">${Math.ceil(file.text.length / 1000)}k chars</span><button type="button" class="attached-file-remove" data-remove-file="${file.id}" aria-label="Remove file">×</button></div>`).join('');
+    }
+
+    async function handleContextFiles(fileList) {
+      const files = Array.from(fileList || []);
+      if (!files.length) return;
+      for (const file of files.slice(0, 6)) {
+        if (file.size > 1024 * 1024 * 1.5) { showToast(`${file.name}: file is too large`, 'error'); continue; }
+        const text = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result || ''));
+          reader.onerror = () => reject(new Error('read error'));
+          reader.readAsText(file);
+        }).catch(() => '');
+        if (!text) { showToast(`${file.name}: unsupported or empty`, 'error'); continue; }
+        state.attachedFiles.push({ id: `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`, name: file.name, text: text.slice(0, 12000) });
+      }
+      renderAttachedFiles();
+      if (el.contextFileInput) el.contextFileInput.value = '';
+      if (state.attachedFiles.length) showToast('Local context attached', 'success');
+    }
+
+    function removeAttachedFile(id) {
+      state.attachedFiles = state.attachedFiles.filter(file => file.id !== id);
+      renderAttachedFiles();
+    }
+
+
     // === INIT ===
     function init() {
+      detectEnvironment();
       loadConversations();
       migrateConversationsModelKeys();
       loadSettings();
@@ -2288,7 +2647,7 @@
       updateApiStatus();
       renderConversations();
       syncModelIndicator();
-      el.tokenCounter.style.display = state.showTokens ? '' : 'none';
+      updateTokenCounter();
       el.connectionStatus.textContent = 'Ready';
       bindEvents();
       checkOllamaAvailability().then(() => {
@@ -2296,6 +2655,7 @@
           el.noKeyNotice.style.display = 'none';
           updateProccesaSetupVisibility();
         }
+        updateComposerStatus();
       });
 
       const storedConversationId = localStorage.getItem(CONFIG.storageCurrentConversation);
@@ -2309,6 +2669,9 @@
         el.noKeyNotice.style.display = 'block';
       }
 
+      renderAttachedFiles();
+      syncProfilePills();
+      updateComposerStatus();
       updateSendButton();
       updateTokenEstimate();
       el.inputTextarea.focus();
@@ -2322,22 +2685,37 @@
           state.streamEnabled = s.streamEnabled !== false;
           state.showTokens = s.showTokens !== false;
           state.temperature = typeof s.temperature === 'number' ? s.temperature : 0.7;
+          state.useMemory = s.useMemory !== false;
+          state.localBoost = s.localBoost !== false;
+          state.contextWindow = typeof s.contextWindow === 'number' ? s.contextWindow : 12;
+          state.profile = typeof s.profile === 'string' ? s.profile : 'smart';
         }
       } catch (_) {}
       el.toggleStream.classList.toggle('on', state.streamEnabled);
       el.toggleStream.setAttribute('aria-pressed', state.streamEnabled);
       el.toggleShowTokens.classList.toggle('on', state.showTokens);
       el.toggleShowTokens.setAttribute('aria-pressed', state.showTokens);
+      el.toggleUseMemory?.classList.toggle('on', state.useMemory);
+      el.toggleUseMemory?.setAttribute('aria-pressed', state.useMemory);
+      el.toggleLocalBoost?.classList.toggle('on', state.localBoost);
+      el.toggleLocalBoost?.setAttribute('aria-pressed', state.localBoost);
       el.settingsTemperature.value = state.temperature;
       el.temperatureValue.textContent = state.temperature;
-      el.tokenCounter.style.display = state.showTokens ? '' : 'none';
+      if (el.settingsContextWindow) el.settingsContextWindow.value = state.contextWindow;
+      if (el.contextWindowValue) el.contextWindowValue.textContent = state.contextWindow;
+      updateTokenCounter();
+      syncProfilePills();
     }
 
     function saveSettings() {
       localStorage.setItem('proccesa_settings', JSON.stringify({
         streamEnabled: state.streamEnabled,
         showTokens: state.showTokens,
-        temperature: state.temperature
+        temperature: state.temperature,
+        useMemory: state.useMemory,
+        localBoost: state.localBoost,
+        contextWindow: state.contextWindow,
+        profile: state.profile
       }));
     }
 
@@ -2497,10 +2875,17 @@ PARAMETER top_p 0.9`;
 
     // === CONVERSATIONS UI ===
     function renderConversations() {
-      el.conversationsEmpty.style.display = state.conversations.length ? 'none' : 'flex';
+      const filter = (state.conversationFilter || '').trim().toLowerCase();
+      const visibleConversations = state.conversations.filter(c => {
+        if (!filter) return true;
+        const haystack = [c.title, ...(c.messages || []).slice(-6).map(m => m.content)].join(' ').toLowerCase();
+        return haystack.includes(filter);
+      });
+      el.conversationsEmpty.style.display = visibleConversations.length ? 'none' : 'flex';
+      el.conversationsEmpty.textContent = state.conversations.length ? 'Nothing matched your search' : 'Your conversations appear here';
       const groups = {};
       const today = new Date().toDateString();
-      state.conversations.forEach(c => {
+      visibleConversations.forEach(c => {
         const d = new Date(c.updatedAt || c.createdAt).toDateString();
         const label = d === today ? 'TODAY' : d;
         if (!groups[label]) groups[label] = [];
@@ -2590,7 +2975,7 @@ PARAMETER top_p 0.9`;
       renderCodeBlocks(el.messagesList);
       document.title = `Proccesa — ${conv.title}`;
       renderConversations();
-      if (state.showTokens) el.tokenCounter.textContent = `~${state.sessionTokensUsed} tokens`;
+      updateComposerStatus();
       if (window.innerWidth <= 768) el.sidebar.classList.remove('expanded');
       if (options.focusInput !== false) el.inputTextarea.focus();
     }
@@ -2789,14 +3174,13 @@ PARAMETER top_p 0.9`;
         return null;
       }
       const model = CONFIG.models[modelKey];
-      const messages = getCurrentMessages().map(m => ({ role: m.role, content: m.content }));
-      messages.push({ role: 'user', content: userContent });
+      const messages = buildPreparedMessages(userContent);
 
       const body = {
         model: model.id,
         max_tokens: model.maxTokens,
         stream: state.streamEnabled,
-        system: model.system,
+        system: buildSystemPrompt(modelKey),
         messages
       };
       if (state.temperature !== undefined) body.temperature = state.temperature;
@@ -2830,10 +3214,9 @@ PARAMETER top_p 0.9`;
       const base = getOllamaEndpoint();
       const modelName = getOllamaModel();
       const modelConfig = CONFIG.models.proccesa;
-      const messages = getCurrentMessages().map(m => ({ role: m.role, content: m.content }));
-      messages.push({ role: 'user', content: userContent });
+      const messages = buildPreparedMessages(userContent);
       const ollamaMessages = [
-        { role: 'system', content: modelConfig.system },
+        { role: 'system', content: buildSystemPrompt(modelKey) },
         ...messages.map(m => ({ role: m.role, content: m.content }))
       ];
       const body = {
@@ -2896,7 +3279,7 @@ PARAMETER top_p 0.9`;
                 cursorEl = appendStreamCursor(contentEl);
                 el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
                 state.sessionTokensUsed += Math.ceil(content.length / 4);
-                if (el.tokenCounter && state.showTokens) el.tokenCounter.textContent = `~${state.sessionTokensUsed} tokens`;
+                updateTokenCounter();
               }
               if (j.done === true) break;
             } catch (_) {}
@@ -2957,7 +3340,7 @@ PARAMETER top_p 0.9`;
                   cursorEl = appendStreamCursor(contentEl);
                   el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
                   state.sessionTokensUsed += Math.ceil(text.length / 4);
-                  if (el.tokenCounter && state.showTokens) el.tokenCounter.textContent = `~${state.sessionTokensUsed} tokens`;
+                  updateTokenCounter();
                 }
               } catch (_) {}
             }
@@ -3094,7 +3477,7 @@ PARAMETER top_p 0.9`;
         el.connectionStatus.textContent = 'Ready';
         updateSendButton();
         renderConversations();
-        if (state.showTokens) el.tokenCounter.textContent = `~${state.sessionTokensUsed} tokens`;
+        updateComposerStatus();
       }
     }
 
@@ -3176,11 +3559,14 @@ PARAMETER top_p 0.9`;
         state.currentConversationId = null;
         localStorage.removeItem(CONFIG.storageCurrentConversation);
         state.sessionTokensUsed = 0;
+        state.attachedFiles = [];
+        renderAttachedFiles();
         el.messagesList.innerHTML = '';
         showWelcome(true);
         renderConversations();
         document.title = 'Proccesa';
         resetComposer();
+        updateComposerStatus();
         if (window.innerWidth <= 768) el.sidebar.classList.remove('expanded');
         el.inputTextarea.focus();
       });
@@ -3234,6 +3620,7 @@ PARAMETER top_p 0.9`;
             }
             el.proccesaSetupGuide.style.display = 'none';
           }
+          updateComposerStatus();
           if (state.currentConversationId && getCurrentMessages().length > 0) {
             showModelSwitchNotice(modelKey);
           }
@@ -3248,6 +3635,11 @@ PARAMETER top_p 0.9`;
           el.inputTextarea.style.height = el.inputTextarea.scrollHeight + 'px';
         }
       });
+      el.conversationSearch?.addEventListener('input', () => { state.conversationFilter = el.conversationSearch.value; renderConversations(); });
+      el.btnExportChat?.addEventListener('click', () => exportCurrentConversation('md'));
+      el.btnAttachContext?.addEventListener('click', () => el.contextFileInput?.click());
+      el.contextFileInput?.addEventListener('change', (event) => handleContextFiles(event.target.files));
+      el.attachedFilesList?.addEventListener('click', (event) => { const btn = event.target.closest('[data-remove-file]'); if (!btn) return; removeAttachedFile(btn.getAttribute('data-remove-file')); });
       el.inputTextarea.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
@@ -3323,6 +3715,7 @@ PARAMETER top_p 0.9`;
           el.settingsOllamaStatus.textContent = 'Saved';
           el.settingsOllamaStatus.className = 'settings-connection-status connected';
           updateProccesaSetupVisibility();
+          updateComposerStatus();
         });
       });
 
@@ -3374,13 +3767,19 @@ PARAMETER top_p 0.9`;
         el.toggleShowTokens.classList.toggle('on', state.showTokens);
         el.toggleShowTokens.setAttribute('aria-pressed', state.showTokens);
         saveSettings();
-        el.tokenCounter.style.display = state.showTokens ? '' : 'none';
+        updateTokenCounter();
       });
       el.settingsTemperature.addEventListener('input', () => {
         state.temperature = parseFloat(el.settingsTemperature.value);
         el.temperatureValue.textContent = state.temperature;
         saveSettings();
       });
+      el.settingsContextWindow?.addEventListener('input', () => { state.contextWindow = parseInt(el.settingsContextWindow.value, 10); if (el.contextWindowValue) el.contextWindowValue.textContent = state.contextWindow; saveSettings(); });
+      [el.inlineProfilePills, el.profilePills].forEach(group => { group?.addEventListener('click', (event) => { const btn = event.target.closest('[data-profile]'); if (!btn) return; state.profile = btn.getAttribute('data-profile'); syncProfilePills(); updateComposerStatus(); saveSettings(); }); });
+      el.btnExportCurrentMd?.addEventListener('click', () => exportCurrentConversation('md'));
+      el.btnExportCurrentJson?.addEventListener('click', () => exportCurrentConversation('json'));
+      el.btnExportAllJson?.addEventListener('click', exportAllConversations);
+      el.btnClearAllData?.addEventListener('click', clearLocalData);
 
       el.btnHamburger.addEventListener('click', () => {
         el.sidebar.classList.toggle('expanded');
@@ -3395,7 +3794,7 @@ PARAMETER top_p 0.9`;
         }
       });
 
-      ['toggleStream', 'toggleShowTokens'].forEach(key => {
+      ['toggleStream', 'toggleShowTokens', 'toggleUseMemory', 'toggleLocalBoost'].forEach(key => {
         const node = el[key];
         node.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
@@ -3405,7 +3804,7 @@ PARAMETER top_p 0.9`;
         });
       });
 
-      window.addEventListener('resize', queueLayoutRefresh);
+      window.addEventListener('resize', () => { setAppHeight(); queueLayoutRefresh(); });
     }
 
     // === RUN ===
