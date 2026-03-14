@@ -1775,6 +1775,11 @@
       to { transform: rotate(360deg); }
     }
 
+    @keyframes orbPulse {
+      0%,100% { transform: scale(0.92); opacity: 0.72; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
@@ -1880,6 +1885,15 @@
       .welcome-decoration {
         width: 188px;
         height: 188px;
+      }
+
+      .neural-avatar-compact {
+        --orb-size: 76px;
+      }
+
+      .neural-avatar-status {
+        font-size: 9px;
+        padding: 3px 7px;
       }
 
       .welcome-prompts {
@@ -2025,6 +2039,137 @@
     @keyframes toastIn { to { transform:translateY(0); opacity:1; } }
     @supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) { .sidebar,.model-bar,.input-panel,.message-bubble,.settings-overlay { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; } .sidebar,.model-bar,.input-panel,.settings-overlay { background:rgba(10,14,20,0.98) !important; } }
     body.is-safari .input-textarea,body.is-safari .settings-input-wrap input,body.is-safari .sidebar-search { font-size:16px; }
+
+    .neural-avatar {
+      --orb-size: 92px;
+      position: relative;
+      width: var(--orb-size);
+      height: var(--orb-size);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        radial-gradient(circle at 50% 35%, rgba(92, 148, 255, 0.12), transparent 48%),
+        radial-gradient(circle at 30% 70%, rgba(139,94,60,0.12), transparent 44%),
+        linear-gradient(180deg, rgba(4,8,18,0.94), rgba(7,11,18,0.98));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 16px 34px rgba(0,0,0,0.26);
+      overflow: hidden;
+      isolation: isolate;
+      flex-shrink: 0;
+    }
+
+    .neural-avatar::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .neural-avatar-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+      filter: saturate(1.08);
+    }
+
+    .neural-avatar-beam {
+      position: absolute;
+      inset: auto auto 10px 10px;
+      width: 38px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.12));
+      box-shadow: 0 0 18px rgba(255,255,255,0.18);
+      opacity: 0.92;
+      z-index: 2;
+    }
+
+    .neural-avatar-status {
+      position: absolute;
+      right: 10px;
+      bottom: 8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(5,10,18,0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+      font: 500 10px/1 'DM Sans', sans-serif;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(236,243,251,0.88);
+      z-index: 2;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .neural-avatar-compact {
+      --orb-size: 88px;
+      border-radius: 22px;
+    }
+
+    .neural-avatar-welcome {
+      --orb-size: 230px;
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at center, rgba(12,18,30,0.9), rgba(4,8,16,0.2) 64%, transparent 78%);
+      box-shadow: none;
+    }
+
+    .neural-avatar-welcome::before {
+      inset: 12px;
+      border-radius: 999px;
+      border-color: rgba(255,255,255,0.04);
+    }
+
+    .neural-avatar-welcome .neural-avatar-beam,
+    .neural-avatar-welcome .neural-avatar-status {
+      display: none;
+    }
+
+    .neural-avatar[data-mood="thinking"] .neural-avatar-status,
+    .neural-avatar[data-mood="speaking"] .neural-avatar-status {
+      color: #f5fbff;
+      border-color: rgba(118,214,255,0.24);
+      box-shadow: 0 0 0 1px rgba(118,214,255,0.07) inset;
+    }
+
+    .neural-avatar[data-mood="error"] .neural-avatar-status {
+      color: #ffd6d6;
+      border-color: rgba(255,135,135,0.2);
+    }
+
+    .typing-indicator {
+      gap: 10px;
+    }
+
+    .typing-indicator-orb {
+      width: 18px;
+      height: 18px;
+      position: relative;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 35%, rgba(203,239,255,0.95), rgba(115,188,255,0.42) 34%, rgba(24,38,62,0.08) 64%, transparent 72%);
+      box-shadow: 0 0 18px rgba(112, 193, 255, 0.32);
+      animation: orbPulse 1100ms ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .typing-indicator-orb::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: inherit;
+      border: 1px solid rgba(255,255,255,0.18);
+      opacity: 0.85;
+    }
+
+
     @media (max-width:768px) { .sidebar-search-wrap{display:none;} .composer-toolbar{align-items:stretch;} .composer-tools,.composer-status{width:100%;} .composer-tools{justify-content:space-between; margin-left:0;} .profile-inline-pills{width:100%; overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px;} .profile-inline-pills::-webkit-scrollbar{display:none;} .attached-file-chip .name{max-width:140px;} .settings-button-grid{grid-template-columns:1fr;} .toast-stack{left:14px; right:14px; bottom:calc(14px + env(safe-area-inset-bottom));} .toast{min-width:0; max-width:none;} .input-panel{padding-bottom:calc(18px + env(safe-area-inset-bottom));} }
 
   </style>
@@ -2097,6 +2242,11 @@
           </div>
         </div>
         <div class="model-bar-right">
+          <div class="neural-avatar neural-avatar-compact" id="neuralAvatar" data-mood="idle" aria-hidden="true">
+            <canvas class="neural-avatar-canvas" id="neuralAvatarCanvas" width="132" height="132"></canvas>
+            <div class="neural-avatar-beam"></div>
+            <div class="neural-avatar-status" id="neuralAvatarStatus">Idle</div>
+          </div>
           <button type="button" class="top-action-btn" id="btnExportChat">Export</button>
           <span id="connectionStatus"></span>
           <span id="tokenCounter">~0 tokens</span>
@@ -2109,6 +2259,10 @@
           <div class="welcome-screen" id="welcomeScreen">
             <div class="welcome-decoration">
               <svg viewBox="0 0 200 200" width="200" height="200" style="position:absolute;inset:0;"><polygon points="100,10 190,55 190,145 100,190 10,145 10,55" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/><polygon points="100,40 160,70 160,130 100,160 40,130 40,70" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2"/></svg>
+              <div class="neural-avatar neural-avatar-welcome" data-mood="idle" aria-hidden="true">
+                <canvas class="neural-avatar-canvas" width="260" height="260"></canvas>
+                <div class="neural-avatar-beam"></div>
+              </div>
               <div class="welcome-logo-wrap"><span class="welcome-logo font-cinzel">Proccesa</span></div>
             </div>
             <p class="welcome-tagline">Think beyond the known</p>
@@ -2327,7 +2481,10 @@
       localBoost: true,
       contextWindow: 12,
       profile: 'smart',
-      attachedFiles: []
+      attachedFiles: [],
+      neuralMood: 'idle',
+      neuralOrbFrame: null,
+      neuralOrbs: []
     };
 
     // === DOM REFS ===
@@ -2395,7 +2552,10 @@
       btnExportAllJson: document.getElementById('btnExportAllJson'),
       btnClearAllData: document.getElementById('btnClearAllData'),
       toastStack: document.getElementById('toastStack'),
-      hexGridBg: document.getElementById('hexGridBg')
+      hexGridBg: document.getElementById('hexGridBg'),
+      neuralAvatar: document.getElementById('neuralAvatar'),
+      neuralAvatarCanvas: document.getElementById('neuralAvatarCanvas'),
+      neuralAvatarStatus: document.getElementById('neuralAvatarStatus')
     };
 
     function getModelDisplayName(modelKey) {
@@ -2430,11 +2590,184 @@
 
     function updateTokenCounter() {
       if (!el.tokenCounter) return;
-      updateTokenCounter();
-      if (!state.showTokens) return;
+      if (!state.showTokens) {
+        el.tokenCounter.textContent = state.currentModel === 'proccesa' ? 'Local · free' : 'Tokens hidden';
+        return;
+      }
       el.tokenCounter.textContent = state.currentModel === 'proccesa'
         ? (state.isGenerating ? 'Local · free' : '∞ local tokens')
         : `~${state.sessionTokensUsed} tokens`;
+    }
+
+    const NEURAL_MOOD_LABELS = {
+      idle: 'Idle',
+      listening: 'Listening',
+      focused: 'Focused',
+      excited: 'Excited',
+      thinking: 'Thinking',
+      speaking: 'Responding',
+      error: 'Error'
+    };
+
+    function getNeuralMoodParameters(mood = 'idle') {
+      const palette = {
+        idle: { speed: 0.0018, pulse: 0.55, spark: 0.12, glow: 0.10, beam: 0.85 },
+        listening: { speed: 0.0036, pulse: 0.86, spark: 0.28, glow: 0.16, beam: 0.92 },
+        focused: { speed: 0.0048, pulse: 1.02, spark: 0.34, glow: 0.18, beam: 0.96 },
+        excited: { speed: 0.0064, pulse: 1.22, spark: 0.44, glow: 0.24, beam: 1 },
+        thinking: { speed: 0.0084, pulse: 1.3, spark: 0.48, glow: 0.28, beam: 1 },
+        speaking: { speed: 0.0058, pulse: 1.14, spark: 0.4, glow: 0.22, beam: 1 },
+        error: { speed: 0.0022, pulse: 0.6, spark: 0.18, glow: 0.12, beam: 0.8 }
+      };
+      return palette[mood] || palette.idle;
+    }
+
+    function buildNeuralOrbPoints(count = 220) {
+      const pts = [];
+      const offset = 2 / count;
+      const inc = Math.PI * (3 - Math.sqrt(5));
+      for (let i = 0; i < count; i++) {
+        const y = i * offset - 1 + offset / 2;
+        const r = Math.sqrt(Math.max(0, 1 - y * y));
+        const phi = i * inc;
+        pts.push({ x: Math.cos(phi) * r, y, z: Math.sin(phi) * r, seed: Math.random() * Math.PI * 2 });
+      }
+      return pts;
+    }
+
+    function resizeOrbCanvas(canvas) {
+      const ratio = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      const width = Math.max(48, Math.round(canvas.clientWidth || canvas.parentElement.clientWidth || canvas.width));
+      const height = Math.max(48, Math.round(canvas.clientHeight || canvas.parentElement.clientHeight || canvas.height));
+      if (canvas.width !== Math.round(width * ratio) || canvas.height !== Math.round(height * ratio)) {
+        canvas.width = Math.round(width * ratio);
+        canvas.height = Math.round(height * ratio);
+      }
+      return { width: canvas.width, height: canvas.height, ratio };
+    }
+
+    function createNeuralOrb(canvas, index = 0) {
+      const ctx = canvas.getContext('2d');
+      return {
+        canvas,
+        ctx,
+        points: buildNeuralOrbPoints(index === 0 ? 240 : 220),
+        seed: Math.random() * Math.PI * 2,
+        rotX: 0.18 + index * 0.04,
+        rotY: -0.35 + index * 0.06,
+        rotZ: 0.08 + index * 0.03,
+        phase: Math.random() * Math.PI * 2
+      };
+    }
+
+    function rotatePoint(point, ax, ay, az) {
+      let { x, y, z } = point;
+      const cosY = Math.cos(ay), sinY = Math.sin(ay);
+      const x1 = x * cosY - z * sinY;
+      const z1 = x * sinY + z * cosY;
+      x = x1; z = z1;
+      const cosX = Math.cos(ax), sinX = Math.sin(ax);
+      const y1 = y * cosX - z * sinX;
+      const z2 = y * sinX + z * cosX;
+      y = y1; z = z2;
+      const cosZ = Math.cos(az), sinZ = Math.sin(az);
+      const x2 = x * cosZ - y * sinZ;
+      const y2 = x * sinZ + y * cosZ;
+      return { x: x2, y: y2, z: z2 };
+    }
+
+    function drawNeuralOrb(orb, now) {
+      if (!orb?.ctx) return;
+      const dims = resizeOrbCanvas(orb.canvas);
+      const { ctx } = orb;
+      ctx.clearRect(0, 0, dims.width, dims.height);
+      const mood = state.neuralMood || 'idle';
+      const moodParams = getNeuralMoodParameters(mood);
+      const t = now * 0.001;
+      orb.rotY += moodParams.speed;
+      orb.rotX += moodParams.speed * 0.31;
+      orb.rotZ += moodParams.speed * 0.18;
+      const cx = dims.width / 2;
+      const cy = dims.height / 2;
+      const radius = Math.min(dims.width, dims.height) * 0.27;
+      const halo = radius * (1.85 + moodParams.glow * 0.75);
+      const pulse = 1 + Math.sin(t * 1.7 + orb.phase) * 0.035 * moodParams.pulse;
+      const leftWave = Math.sin(t * (mood === 'thinking' ? 3.8 : 2.5) + orb.seed);
+      const beam = orb.canvas.parentElement?.querySelector('.neural-avatar-beam');
+      if (beam) beam.style.opacity = String(0.55 + 0.4 * moodParams.beam + 0.08 * Math.sin(t * 2.2));
+
+      const haloGradient = ctx.createRadialGradient(cx, cy, radius * 0.12, cx, cy, halo);
+      if (mood === 'error') {
+        haloGradient.addColorStop(0, 'rgba(255,120,120,0.2)');
+        haloGradient.addColorStop(0.55, 'rgba(255,120,120,0.07)');
+      } else {
+        haloGradient.addColorStop(0, `rgba(120, 208, 255, ${0.16 + moodParams.glow * 0.24})`);
+        haloGradient.addColorStop(0.45, `rgba(85, 170, 255, ${0.05 + moodParams.glow * 0.12})`);
+      }
+      haloGradient.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = haloGradient;
+      ctx.beginPath();
+      ctx.arc(cx, cy, halo, 0, Math.PI * 2);
+      ctx.fill();
+
+      const projected = orb.points.map((point, index) => {
+        const rotated = rotatePoint(point, orb.rotX + Math.sin(t * 0.4 + point.seed) * 0.08, orb.rotY, orb.rotZ);
+        const perspective = 1.18 + rotated.z * 0.82;
+        const px = cx + rotated.x * radius * perspective * pulse;
+        const py = cy + rotated.y * radius * perspective * pulse;
+        const depth = (rotated.z + 1) / 2;
+        const focus = Math.max(0, 1 - Math.abs(rotated.x + 0.58 + leftWave * 0.12) * 2.2 - Math.abs(rotated.y - 0.05) * 1.7);
+        return { px, py, depth, focus, point, index };
+      }).sort((a, b) => a.depth - b.depth);
+
+      for (const p of projected) {
+        const sparkle = (Math.sin(t * 2.6 + p.point.seed * 2.8) + 1) / 2;
+        const energy = Math.min(1, p.depth * 0.8 + p.focus * (0.45 + moodParams.spark * 0.85) + sparkle * 0.14);
+        const size = 0.8 + p.depth * 2.4 + p.focus * 2.2;
+        const alpha = 0.08 + p.depth * 0.42 + p.focus * (0.22 + moodParams.spark * 0.5);
+        let fill;
+        if (mood === 'error') fill = `rgba(255, ${140 + Math.round(p.depth * 30)}, ${140 + Math.round(p.depth * 30)}, ${alpha})`;
+        else if (p.focus > 0.32) fill = `rgba(214, 244, 255, ${Math.min(1, alpha + 0.26)})`;
+        else fill = `rgba(${145 + Math.round(p.depth * 55)}, ${180 + Math.round(energy * 45)}, 255, ${alpha})`;
+        ctx.fillStyle = fill;
+        ctx.beginPath();
+        ctx.arc(p.px, p.py, size, 0, Math.PI * 2);
+        ctx.fill();
+        if (p.focus > 0.42 || (mood === 'speaking' && sparkle > 0.86)) {
+          ctx.fillStyle = mood === 'error' ? 'rgba(255,160,160,0.16)' : `rgba(125, 214, 255, ${0.08 + p.focus * 0.18})`;
+          ctx.beginPath();
+          ctx.arc(p.px, p.py, size * 2.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    function startNeuralOrbSystem() {
+      const canvases = Array.from(document.querySelectorAll('.neural-avatar-canvas'));
+      state.neuralOrbs = canvases.map((canvas, index) => createNeuralOrb(canvas, index));
+      if (!state.neuralOrbs.length) return;
+      if (state.neuralOrbFrame) cancelAnimationFrame(state.neuralOrbFrame);
+      const loop = now => {
+        state.neuralOrbs.forEach(orb => drawNeuralOrb(orb, now));
+        state.neuralOrbFrame = requestAnimationFrame(loop);
+      };
+      state.neuralOrbFrame = requestAnimationFrame(loop);
+      setNeuralMood(state.neuralMood || 'idle');
+    }
+
+    function setNeuralMood(mood = 'idle') {
+      state.neuralMood = mood;
+      document.querySelectorAll('.neural-avatar').forEach(node => node.setAttribute('data-mood', mood));
+      if (el.neuralAvatarStatus) el.neuralAvatarStatus.textContent = NEURAL_MOOD_LABELS[mood] || 'Idle';
+    }
+
+    function updateComposerEmotion() {
+      if (state.isGenerating) return;
+      const text = (el.inputTextarea?.value || '').trim();
+      if (!text) { setNeuralMood('idle'); return; }
+      if (/[!?]{2,}|⚡|🔥/.test(text)) { setNeuralMood('excited'); return; }
+      if (text.length > 140) { setNeuralMood('focused'); return; }
+      setNeuralMood('listening');
     }
 
     function updateComposerStatus() {
@@ -2470,6 +2803,7 @@
     }
 
     function showToast(message, tone = 'info') {
+      if (tone === 'error') setNeuralMood('error');
       if (!el.toastStack) return;
       const toast = document.createElement('div');
       toast.className = `toast ${tone}`;
@@ -2650,6 +2984,7 @@ ${file.text}`).join('\n\n').slice(0, 32000)}` : '';
       updateTokenCounter();
       el.connectionStatus.textContent = 'Ready';
       bindEvents();
+      startNeuralOrbSystem();
       checkOllamaAvailability().then(() => {
         if (state.currentModel === 'proccesa') {
           el.noKeyNotice.style.display = 'none';
@@ -2674,6 +3009,7 @@ ${file.text}`).join('\n\n').slice(0, 32000)}` : '';
       updateComposerStatus();
       updateSendButton();
       updateTokenEstimate();
+      updateComposerEmotion();
       el.inputTextarea.focus();
     }
 
@@ -3121,7 +3457,7 @@ PARAMETER top_p 0.9`;
       const div = document.createElement('div');
       div.className = 'typing-indicator';
       div.id = 'typingIndicator';
-      div.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+      div.innerHTML = '<span class="typing-indicator-orb"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>';
       el.messagesList.appendChild(div);
       el.messagesContainer.scrollTop = el.messagesContainer.scrollHeight;
       return div;
@@ -3323,6 +3659,7 @@ PARAMETER top_p 0.9`;
               try {
                 const j = JSON.parse(data);
                 if (j.type === 'content_block_delta' && j.delta?.text) {
+                  setNeuralMood('speaking');
                   const text = j.delta.text;
                   full += text;
                   const words = text.split(/(\s+)/);
@@ -3433,6 +3770,7 @@ PARAMETER top_p 0.9`;
       resetComposer();
 
       state.isGenerating = true;
+      setNeuralMood('thinking');
       el.connectionStatus.textContent = state.streamEnabled ? 'Streaming…' : 'Thinking…';
       updateSendButton();
       renderConversations();
@@ -3468,6 +3806,7 @@ PARAMETER top_p 0.9`;
           renderCodeBlocks(el.messagesList.lastElementChild);
         }
       } catch (err) {
+        setNeuralMood('error');
         const errorMessage = err?.message || 'Unknown error';
         addMessage('assistant', `Error: ${errorMessage}`, null, { isError: true, modelLabel: 'Error' });
         addToConversation('assistant', `[Error] ${errorMessage}`, modelUsed);
@@ -3478,6 +3817,7 @@ PARAMETER top_p 0.9`;
         updateSendButton();
         renderConversations();
         updateComposerStatus();
+        updateComposerEmotion();
       }
     }
 
@@ -3567,6 +3907,7 @@ PARAMETER top_p 0.9`;
         document.title = 'Proccesa';
         resetComposer();
         updateComposerStatus();
+        setNeuralMood('idle');
         if (window.innerWidth <= 768) el.sidebar.classList.remove('expanded');
         el.inputTextarea.focus();
       });
@@ -3630,6 +3971,7 @@ PARAMETER top_p 0.9`;
       el.inputTextarea.addEventListener('input', () => {
         updateSendButton();
         updateTokenEstimate();
+        updateComposerEmotion();
         if (el.inputTextarea.scrollHeight <= 160) {
           el.inputTextarea.style.height = 'auto';
           el.inputTextarea.style.height = el.inputTextarea.scrollHeight + 'px';
@@ -3663,6 +4005,7 @@ PARAMETER top_p 0.9`;
           el.inputTextarea.focus();
           updateSendButton();
           updateTokenEstimate();
+          updateComposerEmotion();
         });
       });
 
@@ -3769,6 +4112,20 @@ PARAMETER top_p 0.9`;
         saveSettings();
         updateTokenCounter();
       });
+      el.toggleUseMemory?.addEventListener('click', () => {
+        state.useMemory = !state.useMemory;
+        el.toggleUseMemory.classList.toggle('on', state.useMemory);
+        el.toggleUseMemory.setAttribute('aria-pressed', state.useMemory);
+        saveSettings();
+        updateComposerStatus();
+      });
+      el.toggleLocalBoost?.addEventListener('click', () => {
+        state.localBoost = !state.localBoost;
+        el.toggleLocalBoost.classList.toggle('on', state.localBoost);
+        el.toggleLocalBoost.setAttribute('aria-pressed', state.localBoost);
+        saveSettings();
+        updateComposerStatus();
+      });
       el.settingsTemperature.addEventListener('input', () => {
         state.temperature = parseFloat(el.settingsTemperature.value);
         el.temperatureValue.textContent = state.temperature;
@@ -3796,6 +4153,7 @@ PARAMETER top_p 0.9`;
 
       ['toggleStream', 'toggleShowTokens', 'toggleUseMemory', 'toggleLocalBoost'].forEach(key => {
         const node = el[key];
+        if (!node) return;
         node.addEventListener('keydown', (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
